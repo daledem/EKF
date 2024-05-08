@@ -1,0 +1,3 @@
+ g++ EKF_Test.cpp ./src/*.cpp -o yo
+
+./yo
