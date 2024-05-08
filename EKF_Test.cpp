@@ -26,6 +26,7 @@
 #include "./include/Cheb3D.h"
 #include "./include/IERS.h"
 #include "./include/gmst.h"
+#include "./include/EqnEquinox.h"
 
 #define TOL_ 10e-14
 
@@ -369,6 +370,16 @@ int gmst_01() {
 }
 
 
+int EqnEquinox_01() {
+    double sol;
+    sol = EqnEquinox(37668);
+
+    _assert(fabs(sol + 4.84288292664905e-05) < TOL_);
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -395,6 +406,7 @@ int all_tests()
     _verify(IERS_01);
     _verify(IERS_02);
     _verify(gmst_01);
+    _verify(EqnEquinox_01);
  
     return 0;
 }

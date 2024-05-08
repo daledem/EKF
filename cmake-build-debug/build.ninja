@@ -217,6 +217,20 @@ build CMakeFiles/Proyecto.dir/src/gmst.cpp.obj: CXX_COMPILER__Proyecto_unscanned
   OBJECT_DIR = CMakeFiles\Proyecto.dir
   OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\src
 
+build CMakeFiles/Proyecto.dir/src/gast.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug D$:/3_2Semestre/Taller/Proyecto/Proyecto/Proyecto/src/gast.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\src\gast.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -ID:/3_2Semestre/Taller/Proyecto/Proyecto/Proyecto/include
+  OBJECT_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\src
+
+build CMakeFiles/Proyecto.dir/src/EqnEquinox.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug D$:/3_2Semestre/Taller/Proyecto/Proyecto/Proyecto/src/EqnEquinox.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\src\EqnEquinox.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -ID:/3_2Semestre/Taller/Proyecto/Proyecto/Proyecto/include
+  OBJECT_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Proyecto
@@ -225,7 +239,7 @@ build CMakeFiles/Proyecto.dir/src/gmst.cpp.obj: CXX_COMPILER__Proyecto_unscanned
 #############################################
 # Link the executable Proyecto.exe
 
-build Proyecto.exe: CXX_EXECUTABLE_LINKER__Proyecto_Debug CMakeFiles/Proyecto.dir/src/Matrix.cpp.obj CMakeFiles/Proyecto.dir/EKF_Test.cpp.obj CMakeFiles/Proyecto.dir/src/R_x.cpp.obj CMakeFiles/Proyecto.dir/src/R_y.cpp.obj CMakeFiles/Proyecto.dir/src/R_z.cpp.obj CMakeFiles/Proyecto.dir/src/sign_.cpp.obj CMakeFiles/Proyecto.dir/src/Globals.cpp.obj CMakeFiles/Proyecto.dir/src/unit.cpp.obj CMakeFiles/Proyecto.dir/src/vector.cpp.obj CMakeFiles/Proyecto.dir/src/timediff.cpp.obj CMakeFiles/Proyecto.dir/src/Position.cpp.obj CMakeFiles/Proyecto.dir/src/Mjday_TDB.cpp.obj CMakeFiles/Proyecto.dir/src/Mjday.cpp.obj CMakeFiles/Proyecto.dir/src/MeanObliquity.cpp.obj CMakeFiles/Proyecto.dir/src/Legendre.cpp.obj CMakeFiles/Proyecto.dir/src/Geodetic.cpp.obj CMakeFiles/Proyecto.dir/src/Frac.cpp.obj CMakeFiles/Proyecto.dir/src/EccAnom.cpp.obj CMakeFiles/Proyecto.dir/src/NutAngles.cpp.obj CMakeFiles/Proyecto.dir/src/AccelPointMass.cpp.obj CMakeFiles/Proyecto.dir/src/AzElPa.cpp.obj CMakeFiles/Proyecto.dir/src/Cheb3D.cpp.obj CMakeFiles/Proyecto.dir/src/IERS.cpp.obj CMakeFiles/Proyecto.dir/src/gmst.cpp.obj
+build Proyecto.exe: CXX_EXECUTABLE_LINKER__Proyecto_Debug CMakeFiles/Proyecto.dir/src/Matrix.cpp.obj CMakeFiles/Proyecto.dir/EKF_Test.cpp.obj CMakeFiles/Proyecto.dir/src/R_x.cpp.obj CMakeFiles/Proyecto.dir/src/R_y.cpp.obj CMakeFiles/Proyecto.dir/src/R_z.cpp.obj CMakeFiles/Proyecto.dir/src/sign_.cpp.obj CMakeFiles/Proyecto.dir/src/Globals.cpp.obj CMakeFiles/Proyecto.dir/src/unit.cpp.obj CMakeFiles/Proyecto.dir/src/vector.cpp.obj CMakeFiles/Proyecto.dir/src/timediff.cpp.obj CMakeFiles/Proyecto.dir/src/Position.cpp.obj CMakeFiles/Proyecto.dir/src/Mjday_TDB.cpp.obj CMakeFiles/Proyecto.dir/src/Mjday.cpp.obj CMakeFiles/Proyecto.dir/src/MeanObliquity.cpp.obj CMakeFiles/Proyecto.dir/src/Legendre.cpp.obj CMakeFiles/Proyecto.dir/src/Geodetic.cpp.obj CMakeFiles/Proyecto.dir/src/Frac.cpp.obj CMakeFiles/Proyecto.dir/src/EccAnom.cpp.obj CMakeFiles/Proyecto.dir/src/NutAngles.cpp.obj CMakeFiles/Proyecto.dir/src/AccelPointMass.cpp.obj CMakeFiles/Proyecto.dir/src/AzElPa.cpp.obj CMakeFiles/Proyecto.dir/src/Cheb3D.cpp.obj CMakeFiles/Proyecto.dir/src/IERS.cpp.obj CMakeFiles/Proyecto.dir/src/gmst.cpp.obj CMakeFiles/Proyecto.dir/src/gast.cpp.obj CMakeFiles/Proyecto.dir/src/EqnEquinox.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Proyecto.dir

@@ -39,4 +39,7 @@ add_executable(Proyecto
         src/IERS.cpp
         include/gmst.h
         src/gmst.cpp
-        include/gast.h)
+        include/gast.h
+        src/gast.cpp
+        include/EqnEquinox.h
+        src/EqnEquinox.cpp)
