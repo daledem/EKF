@@ -25,6 +25,7 @@
 #include "./include/AzElPa.h"
 #include "./include/Cheb3D.h"
 #include "./include/IERS.h"
+#include "./include/gmst.h"
 
 #define TOL_ 10e-14
 
@@ -358,6 +359,16 @@ int IERS_02() {
 }
 
 
+int gmst_01() {
+    double sol;
+    sol = gmst(37666);
+
+    _assert(fabs(sol - 1.765465139678228) < TOL_);
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -383,6 +394,7 @@ int all_tests()
     _verify(Cheb3D_01);
     _verify(IERS_01);
     _verify(IERS_02);
+    _verify(gmst_01);
  
     return 0;
 }

@@ -36,4 +36,7 @@ add_executable(Proyecto
         include/Cheb3D.h
         src/Cheb3D.cpp
         include/IERS.h
-        src/IERS.cpp)
+        src/IERS.cpp
+        include/gmst.h
+        src/gmst.cpp
+        include/gast.h)
