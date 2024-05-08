@@ -5,6 +5,8 @@ Matrix *Global::eopdata;
 Matrix *Global::Cnm;
 Matrix *Global::Snm;
 
+Matrix *Global::PC;
+
 void Global::GGM03S() {
     int aux1,aux2;
     double aux3,aux4;
@@ -44,6 +46,26 @@ void Global::eop19620101(int c){
                 &((*Global::eopdata)(2,i)),&((*Global::eopdata)(3,i)),&((*Global::eopdata)(4,i)),&((*Global::eopdata)(5,i)),
                 &((*Global::eopdata)(6,i)),&((*Global::eopdata)(7,i)),&((*Global::eopdata)(8,i)),&((*Global::eopdata)(9,i)),
                 &((*Global::eopdata)(10,i)),&((*Global::eopdata)(11,i)),&((*Global::eopdata)(12,i)),&((*Global::eopdata)(13,i)));
+    }
+
+    fclose(fid);
+}
+
+void Global::DE430Coeff() {
+    Global::PC = new Matrix(2285,1020);
+
+    FILE *fid = fopen("../data/M_tab.txt","r");
+
+    if(fid == NULL){
+        printf("Fail to open DE430Coeff.txt");
+        exit(EXIT_FAILURE);
+    }
+
+    for(int i = 1; i <= 2285; i++){
+        for(int j = 1; j <= 1020; j++){
+            fscanf(fid,"%lf",&((*Global::PC)(i,j)));
+
+        }
     }
 
     fclose(fid);

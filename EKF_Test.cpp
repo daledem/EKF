@@ -432,6 +432,9 @@ int main()
     Global::GGM03S();
     cout << (*Global::Cnm)(12,2) << endl;
 
+    Global::DE430Coeff();
+    cout << (*Global::PC)(12,2) << endl;
+
 
     int result = all_tests();
 
