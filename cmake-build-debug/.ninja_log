@@ -42,3 +42,6 @@
 17	172	7368654340000000	CMakeFiles/Proyecto.dir/src/EqnEquinox.cpp.obj	91cbf5861b4d85ea
 10	663	7368654340000000	CMakeFiles/Proyecto.dir/EKF_Test.cpp.obj	aa0939609164b261
 664	871	7368654340000000	Proyecto.exe	992263d05e030f2d
+32	205	7368656780000000	CMakeFiles/Proyecto.dir/src/gast.cpp.obj	c1b503e7024631e5
+24	769	7368656780000000	CMakeFiles/Proyecto.dir/EKF_Test.cpp.obj	aa0939609164b261
+770	1045	7368656780000000	Proyecto.exe	992263d05e030f2d

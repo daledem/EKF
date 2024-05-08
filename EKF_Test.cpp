@@ -27,6 +27,7 @@
 #include "./include/IERS.h"
 #include "./include/gmst.h"
 #include "./include/EqnEquinox.h"
+#include "./include/gast.h"
 
 #define TOL_ 10e-14
 
@@ -380,6 +381,16 @@ int EqnEquinox_01() {
 }
 
 
+int gast_01() {
+    double sol;
+    sol = gast(37669);
+
+    _assert(fabs(sol - 1.81702562326181) < TOL_);
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -407,6 +418,7 @@ int all_tests()
     _verify(IERS_02);
     _verify(gmst_01);
     _verify(EqnEquinox_01);
+    _verify(gast_01);
  
     return 0;
 }
