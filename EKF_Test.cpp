@@ -429,6 +429,10 @@ int main()
     Global::eop19620101(6);
     Global::eopdata->print();
 
+    Global::GGM03S();
+    cout << (*Global::Cnm)(12,2) << endl;
+
+
     int result = all_tests();
 
     if (result == 0)

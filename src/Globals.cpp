@@ -2,13 +2,40 @@
 
 Matrix *Global::eopdata;
 
+Matrix *Global::Cnm;
+Matrix *Global::Snm;
+
+void Global::GGM03S() {
+    int aux1,aux2;
+    double aux3,aux4;
+    // read Earth orientation parameters
+    Global::Cnm = new Matrix(181,181);
+    Global::Snm = new Matrix(181,181);
+    FILE *fid = fopen("../data/GGM03S.txt","r");
+
+    if(fid == NULL){
+        printf("Fail to open GGM03S.txt");
+        exit(EXIT_FAILURE);
+    }
+
+    for(int i = 0; i <= 180; i++){
+        for(int j = 0; j <= i; j++){
+            fscanf(fid,"%d %d %lf %lf %lf %lf",&aux1,
+                   &aux2,&((*Global::Cnm)(i+1,j+1)),&((*Global::Snm)(i+1,j+1)),&aux3,
+                   &aux4);
+        }
+    }
+
+    fclose(fid);
+}
+
 void Global::eop19620101(int c){
     // read Earth orientation parameters
     Global::eopdata = new Matrix(13,c);
     FILE *fid = fopen("../data/eop19620101.txt","r");
 
-    if(fid == nullptr){
-        printf("Error");
+    if(fid == NULL){
+        printf("Fail to open eop19620101.txt");
         exit(EXIT_FAILURE);
     }
 
