@@ -45,4 +45,6 @@ add_executable(Proyecto
         src/EqnEquinox.cpp
         EKF_GEOS3.cpp
         include/PrecMatrix.h
-        src/PrecMatrix.cpp)
+        src/PrecMatrix.cpp
+        include/PoleMatrix.h
+        src/PoleMatrix.cpp)

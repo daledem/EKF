@@ -29,6 +29,7 @@
 #include "./include/EqnEquinox.h"
 #include "./include/gast.h"
 #include "./include/PrecMatrix.h"
+#include "./include/PoleMatrix.h"
 
 #define TOL_ 10e-14
 
@@ -408,6 +409,22 @@ int PrecMatrix_01() {
 }
 
 
+int PoleMatrix_01() {
+    Matrix sol(3,3);
+
+    sol = PoleMatrix(37666,87965);
+
+    double vecRes [] = {-0.124794009354021,-0.391576364226166,-0.91164379348996,
+                        0,0.918826561815273,-0.394661562991286,
+                        0.992182672308557,-0.0492513987836072,-0.114664050549898};
+    Matrix res = Matrix(3,3,vecRes,9);
+
+    _assert(sol.equals(res,TOL_));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -437,6 +454,7 @@ int all_tests()
     _verify(EqnEquinox_01);
     _verify(gast_01);
     _verify(PrecMatrix_01);
+    _verify(PoleMatrix_01);
  
     return 0;
 }
