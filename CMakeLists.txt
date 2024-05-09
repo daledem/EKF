@@ -47,4 +47,6 @@ add_executable(Proyecto
         include/PrecMatrix.h
         src/PrecMatrix.cpp
         include/PoleMatrix.h
-        src/PoleMatrix.cpp)
+        src/PoleMatrix.cpp
+        include/GHAMatrix.h
+        src/GHAMatrix.cpp)

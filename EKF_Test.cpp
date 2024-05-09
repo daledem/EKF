@@ -30,6 +30,7 @@
 #include "./include/gast.h"
 #include "./include/PrecMatrix.h"
 #include "./include/PoleMatrix.h"
+#include "./include/GHAMatrix.h"
 
 #define TOL_ 10e-14
 
@@ -425,6 +426,22 @@ int PoleMatrix_01() {
 }
 
 
+int GHAMatrix_01() {
+    Matrix sol(3,3);
+
+    sol = GHAMatrix(37666);
+
+    double vecRes [] = {-0.193393597637188,0.981121254684122,0,
+                        -0.981121254684122,-0.193393597637188,0,
+                        0,0,1};
+    Matrix res = Matrix(3,3,vecRes,9);
+
+    _assert(sol.equals(res,TOL_));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -455,6 +472,7 @@ int all_tests()
     _verify(gast_01);
     _verify(PrecMatrix_01);
     _verify(PoleMatrix_01);
+    _verify(GHAMatrix_01);
  
     return 0;
 }
