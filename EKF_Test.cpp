@@ -28,6 +28,7 @@
 #include "./include/gmst.h"
 #include "./include/EqnEquinox.h"
 #include "./include/gast.h"
+#include "./include/PrecMatrix.h"
 
 #define TOL_ 10e-14
 
@@ -391,6 +392,22 @@ int gast_01() {
 }
 
 
+int PrecMatrix_01() {
+    Matrix sol(3,3);
+
+    sol = PrecMatrix(37666,87965);
+
+    double vecRes [] = {0.999436212010292,-0.0307945515365567,-0.0133773584156897,
+                        0.0307945508840588,0.999525714109532,-0.000206081727946424,
+                        0.0133773599177334,-0.000205984202882939,0.999910497900757};
+    Matrix res = Matrix(3,3,vecRes,9);
+
+    _assert(sol.equals(res,TOL_));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -419,6 +436,7 @@ int all_tests()
     _verify(gmst_01);
     _verify(EqnEquinox_01);
     _verify(gast_01);
+    _verify(PrecMatrix_01);
  
     return 0;
 }
@@ -432,9 +450,10 @@ int main()
     Global::GGM03S();
     cout << (*Global::Cnm)(12,2) << endl;
 
+    /*
     Global::DE430Coeff();
     cout << (*Global::PC)(12,2) << endl;
-
+    */
 
     int result = all_tests();
 

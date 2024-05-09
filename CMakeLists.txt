@@ -8,7 +8,7 @@ include_directories(include)
 add_executable(Proyecto
         include/Matrix.h
         src/Matrix.cpp
-        EKF_Test.cpp include/R_x.h src/R_x.cpp include/R_y.h src/R_y.cpp include/R_z.h src/R_z.cpp include/SAT_Const.h include/sign_.h src/sign_.cpp include/Globals.h src/Globals.cpp include/unit.h src/unit.cpp include/vector.h src/vector.cpp
+        EKF_Test.cpp include/R_x.h src/R_x.cpp include/R_y.h src/R_y.cpp include/R_z.h src/R_z.cpp include/SAT_Const.h include/sign_.h src/sign_.cpp include/Globals.h src/Globals.cpp include/unit.h src/unit.cpp
         include/timediff.h
         src/timediff.cpp
         include/Position.h
@@ -42,4 +42,7 @@ add_executable(Proyecto
         include/gast.h
         src/gast.cpp
         include/EqnEquinox.h
-        src/EqnEquinox.cpp)
+        src/EqnEquinox.cpp
+        EKF_GEOS3.cpp
+        include/PrecMatrix.h
+        src/PrecMatrix.cpp)
