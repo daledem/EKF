@@ -478,18 +478,9 @@ int all_tests()
 }
 
 
-int main()
+
+int realizarTests()
 {
-    Global::eop19620101(6);
-    Global::eopdata->print();
-
-    Global::GGM03S();
-    cout << (*Global::Cnm)(12,2) << endl;
-
-    /*
-    Global::DE430Coeff();
-    cout << (*Global::PC)(12,2) << endl;
-    */
 
     int result = all_tests();
 
@@ -500,4 +491,5 @@ int main()
 
     return result != 0;
 }
+
 

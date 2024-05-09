@@ -2,11 +2,14 @@
 
 Matrix *Global::eopdata;
 
+/*
 Matrix *Global::Cnm;
 Matrix *Global::Snm;
+*/
 
 Matrix *Global::PC;
 
+/*
 void Global::GGM03S() {
     int aux1,aux2;
     double aux3,aux4;
@@ -30,6 +33,7 @@ void Global::GGM03S() {
 
     fclose(fid);
 }
+ */
 
 void Global::eop19620101(int c){
     // read Earth orientation parameters

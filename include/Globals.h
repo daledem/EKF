@@ -9,8 +9,10 @@ class Global{
 
 
 public:
+    /*
     static Matrix *Cnm;
     static Matrix *Snm;
+     */
     static Matrix *PC;
 
     static Matrix *eopdata;
