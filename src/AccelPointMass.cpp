@@ -1,6 +1,6 @@
 #include "../include/AccelPointMass.h"
 
-Matrix AccelPointMass(Matrix& r,Matrix& s, double GM) {
+Matrix AccelPointMass(const Matrix& r, Matrix& s, double GM) {
 
     Matrix d = r - s;
 

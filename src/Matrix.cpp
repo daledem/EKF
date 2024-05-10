@@ -109,7 +109,7 @@ Matrix operator+(const double& escalar,const Matrix& matrix)
 }
 
 
-Matrix Matrix::operator-(const Matrix& matrix2)
+Matrix Matrix::operator-(const Matrix& matrix2) const
 {
     Matrix result(fil, col);
     
@@ -133,7 +133,7 @@ Matrix Matrix::operator-()
 }
 
  
-Matrix Matrix::operator*(const Matrix& matrix2)
+Matrix Matrix::operator*(const Matrix& matrix2) const
 {
     Matrix result(fil, matrix2.col);
  
@@ -150,7 +150,7 @@ Matrix Matrix::operator*(const Matrix& matrix2)
 }
 
 
-Matrix Matrix::operator*(double multiplicador)
+Matrix Matrix::operator*(double multiplicador) const
 {
     Matrix result(fil, col);
 
@@ -191,7 +191,7 @@ double& Matrix::operator()(const int i, const int j) const
 }
 
 
-Matrix Matrix::trans()
+Matrix Matrix::trans() const
 {
     Matrix result(col,fil);
 
@@ -222,6 +222,26 @@ Matrix Matrix::append(Matrix& matrix2) {
 }
 
 
+Matrix Matrix::join(Matrix &matrix2) {
+    if(col != matrix2.col)
+        throw "Different col dimensions";
+
+    Matrix result(fil + matrix2.fil,col);
+
+    for (int i = 0; i < col; i++) {
+        int j;
+        for (j = 0; j < fil; j++)
+            result.matrix[j][i] = matrix[j][i];
+
+        for (int k = 0; k < matrix2.fil; j++,k++)
+            result.matrix[j][i] = matrix2.matrix[k][i];
+    }
+
+    return result;
+}
+
+
+
 int Matrix::getFil() const {
     return fil;
 }
@@ -233,6 +253,11 @@ int Matrix::getCol() const {
 
 
 Matrix Matrix::getFilaByIndex(int fil,int inicio) const {
+    if(inicio > col) {
+        printf("Parameters outside of dimensions: %d",this->col);
+        exit(EXIT_FAILURE);
+    }
+
     Matrix result(1,col - inicio + 1);
 
     for (int i = inicio,j = 1; i <= col; i++,j++)
@@ -243,8 +268,8 @@ Matrix Matrix::getFilaByIndex(int fil,int inicio) const {
 
 
 Matrix Matrix::getFilaByIndex(int fil,int inicio, int fin) const {
-    if(fin > col) {
-        printf("Parameter fin outside of dimensions: %d < %d",this->col,fin);
+    if(fin > col || inicio > col || inicio > fin) {
+        printf("Parameters outside of dimensions: %d",this->col);
         exit(EXIT_FAILURE);
     }
 
@@ -257,11 +282,31 @@ Matrix Matrix::getFilaByIndex(int fil,int inicio, int fin) const {
 }
 
 
-Matrix Matrix::getColumnaByIndex(int col) const {
-    Matrix result(fil, 1);
+Matrix Matrix::getColumnaByIndex(int col,int inicio) const {
+    if(inicio > fil) {
+        printf("Parameters outside of dimensions: %d",this->fil);
+        exit(EXIT_FAILURE);
+    }
 
-    for (int i = 0; i < fil; i++)
-        result.matrix[i][0] = matrix[i][col - 1];
+    Matrix result(fil - inicio + 1, 1);
+
+    for (int i = inicio; i <= fil; i++)
+        result.matrix[i - 1][0] = matrix[i - 1][col - 1];
+
+    return result;
+}
+
+
+Matrix Matrix::getColumnaByIndex(int col,int inicio,int fin) const {
+    if(fin > fil || inicio > fil || inicio > fin) {
+        printf("Parameters outside of dimensions: %d",this->fil);
+        exit(EXIT_FAILURE);
+    }
+
+    Matrix result(fin - inicio + 1, 1);
+
+    for (int i = inicio, j = 1; i <= fin; i++, j++)
+        result.matrix[j - 1][0] = matrix[i - 1][col - 1];
 
     return result;
 }
@@ -305,15 +350,22 @@ double Matrix::dot(const Matrix &matrix1, const Matrix &matrix2) {
 
 double Matrix::norm(const Matrix& matrix) {
     double sum = 0.0;
-    if(matrix.fil != 1) {
-        printf("Wrong matrix dimensions for norm");
-        exit(EXIT_FAILURE);
+    if(matrix.fil == 1) {
+        for (int j = 1; j <= matrix.col; j++){
+            sum += matrix(1,j)*matrix(1,j);
+        }
+
+        return sqrt(sum);
+
+    }if(matrix.col == 1) {
+        for (int j = 1; j <= matrix.fil; j++){
+            sum += matrix(j,1)*matrix(j,1);
+        }
+
+        return sqrt(sum);
     }
 
+    printf("Wrong matrix dimensions for norm");
+    exit(EXIT_FAILURE);
 
-    for (int j = 1; j <= matrix.col; j++){
-        sum += matrix(1,j)*matrix(1,j);
-    }
-
-    return sqrt(sum);
 }

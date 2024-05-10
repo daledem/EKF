@@ -34,6 +34,7 @@
 #include "./include/AccelHarmonic.h"
 #include "./include/JPL_Eph_DE430.h"
 #include "./include/NutMatrix.h"
+#include "./include/Accel.h"
 
 #define TOL_ 10e-14
 
@@ -571,6 +572,33 @@ int NutMatrix_01() {
 }
 
 
+int Accel_01() {
+    double vY[] = {5720694.22605799,
+                  2687728.41425145,
+                  3483000.08675447,
+                  4371.83136151856,
+                 -1905.47309295878,
+                 -5698.58341611591};
+    Matrix Y(6,1,vY,6);
+
+    Matrix sol(6,1);
+
+    sol = Accel(-543.476874884521,Y);
+
+    double vecRes [] = {4371.83136151856,
+                     -1905.47309295878,
+                     -5698.58341611591,
+                     -6.06544204261725,
+                     -2.84977703178303,
+                     -3.70232534578413};
+    Matrix res = Matrix(6,1,vecRes,6);
+
+    _assert(sol.equals(res,TOL_));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -605,6 +633,7 @@ int all_tests()
     _verify(AccelHarmoic_01);
     _verify(JPL_Eph_DE430_01);
     _verify(NutMatrix_01);
+    _verify(Accel_01);
  
     return 0;
 }
@@ -650,12 +679,14 @@ int main() {
     fclose(fid);
 
     // Model parameters
-    AuxParam.Mjd_UTC = 0;
-    AuxParam.n      = 20;
-    AuxParam.m      = 20;
-    AuxParam.sun     = 1;
-    AuxParam.moon    = 1;
-    AuxParam.planets = 1;
+    AuxParam.Mjd_UTC= 49746.1163541665;
+          AuxParam.n= 20;
+          AuxParam.m= 20;
+        AuxParam.sun= 1;
+       AuxParam.moon= 1;
+    AuxParam.planets= 1;
+     AuxParam.Mjd_TT= 49746.1170623147;
+
 
     // Cargamos eopdata con los datos de eop19620101
     fid = fopen("../data/eop19620101.txt","r");

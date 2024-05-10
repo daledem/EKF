@@ -3,7 +3,7 @@
 extern Matrix Cnm;
 extern Matrix Snm;
 
-Matrix AccelHarmonic(Matrix &r, Matrix &E, int n_max, int m_max) {
+Matrix AccelHarmonic(const Matrix &r,const Matrix &E, int n_max, int m_max) {
     double r_ref,gm,d,latgc,lon,dUdr,dUdlatgc,dUdlon,q1,q2,q3,b1,b2,b3,r2xy,ax,ay,az;
     Matrix r_bf(E.getFil(),r.getCol());
     Matrix pnm(n_max+1,m_max+1);

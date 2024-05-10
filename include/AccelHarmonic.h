@@ -6,6 +6,6 @@
 #include "./Legendre.h"
 #include "./SAT_Const.h"
 
-Matrix AccelHarmonic( Matrix& r, Matrix& E,int n_max,int m_max);
+Matrix AccelHarmonic(const Matrix& r,const Matrix& E,int n_max,int m_max);
 
 #endif //PROYECTO_ACCELHARMONIC_H
