@@ -9,8 +9,8 @@ void IERS(double &x_pole, double &y_pole, double &UT1_UTC, double &LOD, double &
         mjd = (floor(Mjd_UTC));
         i = Matrix::find(mjd,eop,4);
 
-        Matrix preeop = eop.getCol(i);
-        Matrix nexteop = eop.getCol(i+1);
+        Matrix preeop = eop.getColumnaByIndex(i);
+        Matrix nexteop = eop.getColumnaByIndex(i+1);
         mfme = 1440*(Mjd_UTC-floor(Mjd_UTC));
         fixf = mfme/1440;
         // Setting of IERS Earth rotation parameters
@@ -34,7 +34,7 @@ void IERS(double &x_pole, double &y_pole, double &UT1_UTC, double &LOD, double &
     }else if (interp =='n') {
         mjd = (floor(Mjd_UTC));
         i = Matrix::find(mjd,eop,4);
-        Matrix auxEop = eop.getCol(i);
+        Matrix auxEop = eop.getColumnaByIndex(i);
         // Setting of IERS Earth rotation parameters
         // (UT1-UTC [s], TAI-UTC [s], x ["], y ["])
         x_pole  = auxEop(5,1)/Const::Arcs;  // Pole coordinate [rad]

@@ -81,7 +81,7 @@ Matrix Matrix::operator-(const Matrix& matrix2)
  
 Matrix Matrix::operator*(const Matrix& matrix2)
 {
-    Matrix result(fil, col);
+    Matrix result(fil, matrix2.col);
  
     for (int i = 0; i < this->fil ; i++){
         for (int j = 0; j < matrix2.col; j++){
@@ -137,7 +137,29 @@ double& Matrix::operator()(const int i, const int j) const
 }
 
 
-Matrix Matrix::getFil(int fil) const {
+Matrix Matrix::trans()
+{
+    Matrix result(col,fil);
+
+    for (int i = 0; i < col; i++)
+        for (int j = 0; j < fil; j++)
+            result.matrix[i][j] = matrix[j][i];
+
+    return result;
+}
+
+
+int Matrix::getFil() const {
+    return fil;
+}
+
+
+int Matrix::getCol() const {
+    return col;
+}
+
+
+Matrix Matrix::getFilaByIndex(int fil) const {
     Matrix result(1,col);
 
     for (int i = 0; i < col; i++)
@@ -147,7 +169,7 @@ Matrix Matrix::getFil(int fil) const {
 }
 
 
-Matrix Matrix::getCol(int col) const {
+Matrix Matrix::getColumnaByIndex(int col) const {
     Matrix result(fil, 1);
 
     for (int i = 0; i < fil; i++)
@@ -210,6 +232,11 @@ double Matrix::dot(const Matrix &matrix1, const Matrix &matrix2) {
 
 double Matrix::norm(const Matrix& matrix) {
     double sum = 0.0;
+    if(matrix.fil != 1) {
+        printf("Wrong matrix dimensions for norm");
+        exit(EXIT_FAILURE);
+    }
+
 
     for (int j = 1; j <= matrix.col; j++){
         sum += matrix(1,j)*matrix(1,j);

@@ -49,4 +49,5 @@ add_executable(Proyecto
         include/PoleMatrix.h
         src/PoleMatrix.cpp
         include/GHAMatrix.h
-        src/GHAMatrix.cpp include/AccelHarmonic.h)
+        src/GHAMatrix.cpp include/AccelHarmonic.h
+        src/AccelHarmonic.cpp)

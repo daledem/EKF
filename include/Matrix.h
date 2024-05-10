@@ -18,8 +18,11 @@ class Matrix
         Matrix  operator/(double divisor);
         double& operator()(const int i, const int j) const;
 
-        Matrix getFil(int fil) const;
-        Matrix getCol(int col) const;
+        Matrix  trans();
+        int getFil() const;
+        int getCol() const;
+        Matrix getFilaByIndex(int fil) const;
+        Matrix getColumnaByIndex(int col) const;
         bool equals(const Matrix& matrix2,const double TOL) const;
         void print();
 

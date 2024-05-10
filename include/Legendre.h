@@ -4,6 +4,6 @@
 #include <cmath>
 #include "Matrix.h"
 
-void Legendre(Matrix& pnm,Matrix& dpnm,double n, double m, double fi);
+void Legendre(Matrix& pnm,Matrix& dpnm,int n, int m, double fi);
 
 #endif //LEGENDRE_H

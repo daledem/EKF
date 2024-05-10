@@ -31,10 +31,25 @@
 #include "./include/PrecMatrix.h"
 #include "./include/PoleMatrix.h"
 #include "./include/GHAMatrix.h"
+#include "./include/AccelHarmonic.h"
 
 #define TOL_ 10e-14
 
 int tests_run = 0;
+
+Matrix Snm(181,181);
+Matrix Cnm(181,181);
+Matrix PC(2285,1020);
+Matrix eopdata(13,21413);
+struct {
+    double Mjd_UTC;
+    int n;
+    int m;
+    int sun;
+    int moon;
+    int planets;
+    double Mjd_TT;
+}AuxParam;
 
 #define FAIL() printf("\nfailure in %s() line %d\n", __func__, __LINE__)
 #define _assert(test) do { if (!(test)) { FAIL(); return 1; } } while(0)
@@ -56,6 +71,7 @@ int proMat_01()
     m1.print();
     m2.print();
     sol.print();
+    sol.trans().print();
 
     _assert(sol(1,1) == m1(1,1) && sol(1,2) == m1(1,2) && sol(2,1) == m1(2,1) && sol(2,2) == m1(2,2));
     
@@ -330,7 +346,7 @@ int Cheb3D_01() {
 
 int IERS_01() {
     double x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC;
-    IERS(x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,*Global::eopdata,37666.00000000000000,'l');
+    IERS(x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,eopdata,37666.00000000000000,'l');
 
     _assert(fabs(x_pole + 7.708537529641623e-08) < TOL_);
     _assert(fabs(y_pole - 1.037986091255516e-06) < TOL_);
@@ -348,7 +364,7 @@ int IERS_01() {
 
 int IERS_02() {
     double x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC;
-    IERS(x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,*Global::eopdata,37666);
+    IERS(x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,eopdata,37666);
 
     _assert(fabs(x_pole + 7.708537529641623e-08) < TOL_);
     _assert(fabs(y_pole - 1.037986091255516e-06) < TOL_);
@@ -442,6 +458,28 @@ int GHAMatrix_01() {
 }
 
 
+int AccelHarmoic_01() {
+    double vecR [] = {5720694.2260585,2687728.41425142,3483000.08675422};
+    Matrix r = Matrix(3,1,vecR,3);
+
+    double vecE [] = {-0.976558757940107,0.215250556888025,-0.000435947096290288,
+                            -0.2152505181354,-0.976558854525697,-0.000134498699131133,
+                            -0.000454678916875739,-3.7508044211961e-05,0.999999895930109};
+    Matrix E = Matrix(3,3,vecE,9);
+
+    Matrix sol(3,1);
+
+    sol = AccelHarmonic(r,E,20,20);
+
+    double vecRes [] = {-6.06544113186609,-2.8497772091355,-3.70232504408661};
+    Matrix res = Matrix(3,1,vecRes,3);
+
+    _assert(sol.equals(res,TOL_));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -473,14 +511,72 @@ int all_tests()
     _verify(PrecMatrix_01);
     _verify(PoleMatrix_01);
     _verify(GHAMatrix_01);
+    _verify(AccelHarmoic_01);
  
     return 0;
 }
 
 
+int main() {
 
-int realizarTests()
-{
+    // Cargamos PC con los datos de DE430Coeff
+    FILE *fid = fopen("../data/M_tab.txt","r");
+
+    if(fid == NULL){
+        printf("Fail to open DE430Coeff.txt");
+        exit(EXIT_FAILURE);
+    }
+
+    for(int i = 1; i <= 2285; i++){
+        for(int j = 1; j <= 1020; j++){
+            fscanf(fid,"%lf",&(PC(i,j)));
+
+        }
+    }
+
+    fclose(fid);
+
+
+    // Cargamos Snm y Cnm con los datos de GGM03S
+    fid = fopen("../data/GGM03S.txt","r");
+    int aux1,aux2;
+    double aux3,aux4;
+    if(fid == NULL){
+        printf("Fail to open GGM03S.txt");
+        exit(EXIT_FAILURE);
+    }
+
+    for(int i = 0; i <= 180; i++){
+        for(int j = 0; j <= i; j++){
+            fscanf(fid,"%d %d %lf %lf %lf %lf",&aux1,
+                   &aux2,&(Cnm(i+1,j+1)),&(Snm(i+1,j+1)),&aux3,
+                   &aux4);
+        }
+    }
+
+    fclose(fid);
+
+    // Model parameters
+    AuxParam.Mjd_UTC = 0;
+    AuxParam.n = 0;
+    AuxParam.m = 0;
+
+    // Cargamos eopdata con los datos de eop19620101
+    fid = fopen("../data/eop19620101.txt","r");
+
+    if(fid == NULL){
+        printf("Fail to open eop19620101.txt");
+        exit(EXIT_FAILURE);
+    }
+
+    for(int i = 1; i<=21413; i++){
+        fscanf(fid,"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",&(eopdata(1,i)),
+               &(eopdata(2,i)),&(eopdata(3,i)),&(eopdata(4,i)),&(eopdata(5,i)),
+               &(eopdata(6,i)),&(eopdata(7,i)),&(eopdata(8,i)),&(eopdata(9,i)),
+               &(eopdata(10,i)),&(eopdata(11,i)),&(eopdata(12,i)),&(eopdata(13,i)));
+    }
+
+    fclose(fid);
 
     int result = all_tests();
 
