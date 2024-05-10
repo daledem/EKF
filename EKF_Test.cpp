@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "./include/Globals.h"
 #include "./include/Matrix.h"
 #include "./include/R_x.h"
 #include "./include/R_y.h"
@@ -32,6 +33,7 @@
 #include "./include/GHAMatrix.h"
 #include "./include/AccelHarmonic.h"
 #include "./include/JPL_Eph_DE430.h"
+#include "./include/NutMatrix.h"
 
 #define TOL_ 10e-14
 
@@ -41,15 +43,7 @@ Matrix Snm(181,181);
 Matrix Cnm(181,181);
 Matrix PC(2285,1020);
 Matrix eopdata(13,21413);
-struct {
-    double Mjd_UTC;
-    int n;
-    int m;
-    int sun;
-    int moon;
-    int planets;
-    double Mjd_TT;
-}AuxParam;
+struct auxParam AuxParam;
 
 #define FAIL() printf("\nfailure in %s() line %d\n", __func__, __LINE__)
 #define _assert(test) do { if (!(test)) { FAIL(); return 1; } } while(0)
@@ -561,6 +555,22 @@ int JPL_Eph_DE430_01() {
 }
 
 
+int NutMatrix_01() {
+    Matrix sol(3,3);
+
+    sol = NutMatrix(37666);
+
+    double vecRes [] = {0.999999998577198,0.000048940522818,0.000021223327599,
+  -0.000048941303822,0.999999998125241,0.000036800373610,
+  -0.000021221526530,-0.000036801412255,0.999999999097651};
+    Matrix res = Matrix(3,3,vecRes,9);
+
+    _assert(sol.equals(res,TOL_));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -594,6 +604,7 @@ int all_tests()
     _verify(GHAMatrix_01);
     _verify(AccelHarmoic_01);
     _verify(JPL_Eph_DE430_01);
+    _verify(NutMatrix_01);
  
     return 0;
 }
@@ -640,8 +651,11 @@ int main() {
 
     // Model parameters
     AuxParam.Mjd_UTC = 0;
-    AuxParam.n = 0;
-    AuxParam.m = 0;
+    AuxParam.n      = 20;
+    AuxParam.m      = 20;
+    AuxParam.sun     = 1;
+    AuxParam.moon    = 1;
+    AuxParam.planets = 1;
 
     // Cargamos eopdata con los datos de eop19620101
     fid = fopen("../data/eop19620101.txt","r");

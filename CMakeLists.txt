@@ -8,7 +8,7 @@ include_directories(include)
 add_executable(Proyecto
         include/Matrix.h
         src/Matrix.cpp
-        EKF_Test.cpp include/R_x.h src/R_x.cpp include/R_y.h src/R_y.cpp include/R_z.h src/R_z.cpp include/SAT_Const.h include/sign_.h src/sign_.cpp include/Globals.h src/Globals.cpp include/unit.h src/unit.cpp
+        EKF_Test.cpp include/R_x.h src/R_x.cpp include/R_y.h src/R_y.cpp include/R_z.h src/R_z.cpp include/SAT_Const.h include/sign_.h src/sign_.cpp include/Globals.h include/unit.h src/unit.cpp
         include/timediff.h
         src/timediff.cpp
         include/Position.h
@@ -53,4 +53,7 @@ add_executable(Proyecto
         src/AccelHarmonic.cpp
         include/JPL_Eph_DE430.h
         src/JPL_Eph_DE430.cpp
-        include/Accel.h)
+        include/Accel.h
+        src/Accel.cpp
+        include/NutMatrix.h
+        src/NutMatrix.cpp)
