@@ -9,7 +9,6 @@
 #include "./include/R_y.h"
 #include "./include/R_z.h"
 #include "./include/sign_.h"
-#include "./include/Globals.h"
 #include "./include/unit.h"
 #include "./include/timediff.h"
 #include "./include/Position.h"
@@ -32,6 +31,7 @@
 #include "./include/PoleMatrix.h"
 #include "./include/GHAMatrix.h"
 #include "./include/AccelHarmonic.h"
+#include "./include/JPL_Eph_DE430.h"
 
 #define TOL_ 10e-14
 
@@ -74,7 +74,13 @@ int proMat_01()
     sol.trans().print();
 
     _assert(sol(1,1) == m1(1,1) && sol(1,2) == m1(1,2) && sol(2,1) == m1(2,1) && sol(2,2) == m1(2,2));
-    
+
+    sol.append(m1).append(m2).print();
+    Matrix prueba = sol.append(m1).append(m2);
+    prueba = (prueba.append(sol));
+    prueba.print();
+    sol.getFilaByIndex(1).print();
+
     return 0;
 }
 
@@ -480,6 +486,81 @@ int AccelHarmoic_01() {
 }
 
 
+int JPL_Eph_DE430_01() {
+    Matrix r_Mercury(3,1);
+    Matrix r_Venus(3,1);
+    Matrix r_Earth(3,1);
+    Matrix r_Mars(3,1);
+    Matrix r_Jupiter(3,1);
+    Matrix r_Saturn(3,1);
+    Matrix r_Uranus(3,1);
+    Matrix r_Neptune(3,1);
+    Matrix r_Pluto(3,1);
+    Matrix r_Moon(3,1);
+    Matrix r_Sun(3,1);
+    JPL_Eph_DE430(r_Mercury,r_Venus,r_Earth,r_Mars,r_Jupiter,r_Saturn,r_Uranus,r_Neptune,r_Pluto,r_Moon,r_Sun,37666);
+
+    double vMerc [] = {0.735116603324514*1.0e+11,
+        -1.691926538640355*1.0e+11,
+        -0.816370690593120*1.0e+11};
+    Matrix Merc(3,1,vMerc,3);
+    double vVenus [] = {0.246563930605697*1.0e+11,
+         -2.313576670076116*1.0e+11,
+         -1.016066087671335*1.0e+11};
+    Matrix Venus(3,1,vVenus,3);
+    double vEarth [] = {-0.301765548935945*1.0e+11,
+          1.330462426738211*1.0e+11,
+          0.576994514956490*1.0e+11};
+    Matrix Earth(3,1,vEarth,3);
+    double vMars [] = { 0.428014158577189*1.0e+11,
+         -3.285476270689033*1.0e+11,
+         -1.477395954528360*1.0e+11};
+    Matrix Mars(3,1,vMars,3);
+    double vJupi [] = {5.806041993621722*1.0e+11,
+         -6.039191097953667*1.0e+11,
+         -2.729724763892779*1.0e+11};
+    Matrix Jupi(3,1,vJupi,3);
+    double vSatu [] = {0.824980894643224*1.0e+12,
+         -1.289737921795669*1.0e+12,
+         -0.569475935851322*1.0e+12};
+    Matrix Satu(3,1,vSatu,3);
+    double vUran [] = {-2.307757638486849*1.0e+12,
+          1.171432960693235*1.0e+12,
+          0.546761533865996*1.0e+12};
+    Matrix Uran(3,1,vUran,3);
+    double vNept [] = {-3.343537384563364*1.0e+12,
+         -2.968732390487868*1.0e+12,
+         -1.134405249457255*1.0e+12};
+    Matrix Nept(3,1,vNept,3);
+    double vPluto [] = {-4.510941275724197*1.0e+12,
+           1.012707866105105*1.0e+12,
+          1.667907922624643*1.0e+12};
+    Matrix Pluto(3,1,vPluto,3);
+    double vMoon [] = {-2.790184113338402*1.0e+08,
+         -2.602453013405682*1.0e+08,
+         -0.746811863302955*1.0e+08};
+    Matrix Moon(3,1,vMoon,3);
+    double vSun [] = {0.296997880114303*1.0e+11,
+         -1.321769585597421*1.0e+11,
+         -0.573185756659810*1.0e+11};
+    Matrix Sun(3,1,vSun,3);
+
+    _assert(r_Mercury.equals(Merc,0.1));
+    _assert(r_Venus.equals(Venus,0.1));
+    _assert(r_Earth.equals(Earth,0.1));
+    _assert(r_Mars.equals(Mars,0.1));
+    _assert(r_Jupiter.equals(Jupi,0.1));
+    _assert(r_Saturn.equals(Satu,0.1));
+    _assert(r_Uranus.equals(Uran,0.1));
+    _assert(r_Neptune.equals(Nept,0.1));
+    _assert(r_Pluto.equals(Pluto,0.1));
+    _assert(r_Moon.equals(Moon,0.1));
+    _assert(r_Sun.equals(Sun,0.1));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -512,6 +593,7 @@ int all_tests()
     _verify(PoleMatrix_01);
     _verify(GHAMatrix_01);
     _verify(AccelHarmoic_01);
+    _verify(JPL_Eph_DE430_01);
  
     return 0;
 }

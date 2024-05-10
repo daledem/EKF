@@ -8,7 +8,8 @@ Matrix::Matrix(int fil, int col) : fil(fil), col(col)
 {
     initMatrix();
 }
- 
+
+
 Matrix::Matrix(int fil, int col, double v[], int n): fil(fil), col(col)
 {
     initMatrix();
@@ -23,12 +24,14 @@ Matrix::Matrix(int fil, int col, double v[], int n): fil(fil), col(col)
                 matrix[i][j] = 0;
         }
 }
- 
+
+
 Matrix::Matrix(const Matrix& m)
 {
     *this = m;
 }
- 
+
+
 Matrix::~Matrix()
 {
     for (int i = 0; i < fil; i++)
@@ -36,7 +39,8 @@ Matrix::~Matrix()
  
     delete[] matrix;
 }
- 
+
+
 void Matrix::initMatrix()
 {
     matrix = new double*[fil];
@@ -47,16 +51,28 @@ void Matrix::initMatrix()
         for (int j = 0; j < col; j++)
             matrix[i][j] = 0.0;
 }
- 
+
+
 Matrix& Matrix::operator=(const Matrix& matrix2)
 {
+    this->fil = matrix2.fil;
+    this->col = matrix2.col;
+
+    for (int i = 0; i < fil; i++)
+        delete[] matrix[i];
+
+    delete[] matrix;
+
+    this->initMatrix();
+
     for (int i = 0; i < fil; i++)
         for (int j = 0; j < col; j++)
             this->matrix[i][j] = matrix2.matrix[i][j];
- 
+
     return *this;
 }
- 
+
+
 Matrix Matrix::operator+(const Matrix& matrix2)
 {
     Matrix result(fil, col);
@@ -67,7 +83,32 @@ Matrix Matrix::operator+(const Matrix& matrix2)
  
     return result;
 }
- 
+
+
+Matrix Matrix::operator+(double sumando)
+{
+    Matrix result(fil, col);
+
+    for (int i = 0; i < fil; i++)
+        for (int j = 0; j < col; j++)
+            result.matrix[i][j] = matrix[i][j] + sumando;
+
+    return result;
+}
+
+
+Matrix operator+(const double& escalar,const Matrix& matrix)
+{
+    Matrix result(matrix.fil, matrix.col);
+
+    for (int i = 0; i < matrix.fil; i++)
+        for (int j = 0; j < matrix.col; j++)
+            result.matrix[i][j] = matrix.matrix[i][j] + escalar;
+
+    return result;
+}
+
+
 Matrix Matrix::operator-(const Matrix& matrix2)
 {
     Matrix result(fil, col);
@@ -78,6 +119,19 @@ Matrix Matrix::operator-(const Matrix& matrix2)
  
     return result;
 }
+
+
+Matrix Matrix::operator-()
+{
+    Matrix result(fil, col);
+
+    for (int i = 0; i < fil; i++)
+        for (int j = 0; j < col; j++)
+            result.matrix[i][j] = -matrix[i][j];
+
+    return result;
+}
+
  
 Matrix Matrix::operator*(const Matrix& matrix2)
 {
@@ -149,6 +203,25 @@ Matrix Matrix::trans()
 }
 
 
+Matrix Matrix::append(Matrix& matrix2) {
+    if(fil != matrix2.fil)
+        throw "Different row dimensions";
+
+    Matrix result(fil,col + matrix2.col);
+
+    for (int i = 0; i < fil; i++) {
+        int j;
+        for (j = 0; j < col; j++)
+            result.matrix[i][j] = matrix[i][j];
+
+        for (int k = 0; k < matrix2.col; j++,k++)
+            result.matrix[i][j] = matrix2.matrix[i][k];
+    }
+
+    return result;
+}
+
+
 int Matrix::getFil() const {
     return fil;
 }
@@ -159,11 +232,26 @@ int Matrix::getCol() const {
 }
 
 
-Matrix Matrix::getFilaByIndex(int fil) const {
-    Matrix result(1,col);
+Matrix Matrix::getFilaByIndex(int fil,int inicio) const {
+    Matrix result(1,col - inicio + 1);
 
-    for (int i = 0; i < col; i++)
-        result.matrix[0][i] = matrix[fil - 1][i];
+    for (int i = inicio,j = 1; i <= col; i++,j++)
+        result.matrix[0][j - 1] = matrix[fil - 1][i - 1];
+
+    return result;
+}
+
+
+Matrix Matrix::getFilaByIndex(int fil,int inicio, int fin) const {
+    if(fin > col) {
+        printf("Parameter fin outside of dimensions: %d < %d",this->col,fin);
+        exit(EXIT_FAILURE);
+    }
+
+    Matrix result(1,fin - inicio + 1);
+
+    for (int i = inicio, j = 1; i <= fin; i++, j++)
+        result.matrix[0][j - 1] = matrix[fil - 1][i - 1];
 
     return result;
 }
@@ -198,21 +286,6 @@ void Matrix::print()
         std::cout << std::endl;
     }
     std::cout << std::endl;
-}
-
-
-int Matrix::find(const double objective, const Matrix &matrix,const int fil) {
-    int i = 0;
-    int j = 1;
-
-    while(j < matrix.col && i == 0){
-        if(fabs(objective-matrix(fil,j)) < 10e-14) {
-            i = j;
-        }
-        j++;
-    }
-
-    return i;
 }
 
 

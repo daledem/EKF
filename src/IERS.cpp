@@ -7,7 +7,18 @@ void IERS(double &x_pole, double &y_pole, double &UT1_UTC, double &LOD, double &
     if (interp =='l') {
         // linear interpolation
         mjd = (floor(Mjd_UTC));
-        i = Matrix::find(mjd,eop,4);
+
+        // Apaño para sustituir la funcion find de matlab
+        i = 0;
+        int j = 1;
+
+        while(j < eop.getCol() && i == 0){
+            if(fabs(mjd-eop(4,j)) < 10e-14) {
+                i = j;
+            }
+            j++;
+        }
+
 
         Matrix preeop = eop.getColumnaByIndex(i);
         Matrix nexteop = eop.getColumnaByIndex(i+1);
@@ -33,7 +44,19 @@ void IERS(double &x_pole, double &y_pole, double &UT1_UTC, double &LOD, double &
         dy_pole = dy_pole/Const::Arcs; // Pole coordinate [rad]
     }else if (interp =='n') {
         mjd = (floor(Mjd_UTC));
-        i = Matrix::find(mjd,eop,4);
+
+        // Apaño para sustituir la funcion find de matlab
+        i = 0;
+        int j = 1;
+
+        while(j < eop.getCol() && i == 0){
+            if(fabs(mjd-eop(4,j)) < 10e-14) {
+                i = j;
+            }
+            j++;
+        }
+
+
         Matrix auxEop = eop.getColumnaByIndex(i);
         // Setting of IERS Earth rotation parameters
         // (UT1-UTC [s], TAI-UTC [s], x ["], y ["])
@@ -48,4 +71,20 @@ void IERS(double &x_pole, double &y_pole, double &UT1_UTC, double &LOD, double &
         TAI_UTC = auxEop(13,1);            // TAI-UTC time difference [s]
     }
 
+}
+
+namespace {
+    int find(const double objective, const Matrix &matrix,const int fil) {
+        int i = 0;
+        int j = 1;
+
+        while(j < matrix.getCol() && i == 0){
+            if(fabs(objective-matrix(fil,j)) < 10e-14) {
+                i = j;
+            }
+            j++;
+        }
+
+        return i;
+    }
 }

@@ -50,4 +50,7 @@ add_executable(Proyecto
         src/PoleMatrix.cpp
         include/GHAMatrix.h
         src/GHAMatrix.cpp include/AccelHarmonic.h
-        src/AccelHarmonic.cpp)
+        src/AccelHarmonic.cpp
+        include/JPL_Eph_DE430.h
+        src/JPL_Eph_DE430.cpp
+        include/Accel.h)

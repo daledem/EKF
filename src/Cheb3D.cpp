@@ -1,6 +1,6 @@
 #include "Cheb3D.h"
 
-Matrix Cheb3D(double t, int N, double Ta, double Tb, Matrix &Cx, Matrix &Cy, Matrix &Cz) {
+Matrix Cheb3D(double t, int N, double Ta, double Tb,const Matrix &Cx,const Matrix &Cy,const Matrix &Cz) {
     // Check validity
     if ( (t<Ta) || (Tb<t) )
         throw "ERROR: Time out of range in Cheb3D::Value\n";
