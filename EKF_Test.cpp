@@ -37,6 +37,7 @@
 #include "./include/NutMatrix.h"
 #include "./include/Accel.h"
 #include "./include/LTC.h"
+#include "./include/DEInteg.h"
 
 #define TOL_ 10e-14
 
@@ -659,6 +660,41 @@ int TimeUpdate_01() {
 }
 
 
+int DEInteg_01() {
+
+
+    double vY0_apr [] = {
+        5542555.89427451,
+        3213514.83814162,
+        3990892.92789074,
+        5394.06894044389,
+        -2365.21290574021,
+        -7061.8448137347
+    };
+    Matrix Y0_apr(6,1,vY0_apr,6);
+
+    Matrix sol(6,1);
+
+    sol = DEInteg(Accel,0,-134.999991953373,1e-13,1e-6,6,Y0_apr);
+
+    double vecRes [] = {
+        4770389.73359375,
+          3505294.14446446,
+          4908451.48687418,
+          6023.82007300979,
+         -1955.38681916708,
+         -6518.08682615261
+    };
+    Matrix res = Matrix(6,1,vecRes,6);
+    sol.print();
+    (sol-res).print();
+
+    _assert(sol.equals(res,0.1));
+
+    return 0;
+}
+
+
 int all_tests()
 {
     _verify(proMat_01);
@@ -696,6 +732,7 @@ int all_tests()
     _verify(Accel_01);
     _verify(LTC_01);
     _verify(TimeUpdate_01);
+    _verify(DEInteg_01);
  
     return 0;
 }

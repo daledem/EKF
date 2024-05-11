@@ -60,4 +60,6 @@ add_executable(Proyecto
         include/LTC.h
         src/LTC.cpp
         include/TimeUpdate.h
-        src/TimeUpdate.cpp)
+        src/TimeUpdate.cpp
+        include/DEInteg.h
+        src/DEInteg.cpp)

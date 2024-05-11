@@ -55,13 +55,9 @@ void Matrix::initMatrix()
 
 Matrix& Matrix::operator=(const Matrix& matrix2)
 {
+
     this->fil = matrix2.fil;
     this->col = matrix2.col;
-
-    for (int i = 0; i < fil; i++)
-        delete[] matrix[i];
-
-    delete[] matrix;
 
     this->initMatrix();
 
