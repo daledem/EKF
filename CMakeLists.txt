@@ -56,4 +56,8 @@ add_executable(Proyecto
         include/Accel.h
         src/Accel.cpp
         include/NutMatrix.h
-        src/NutMatrix.cpp)
+        src/NutMatrix.cpp
+        include/LTC.h
+        src/LTC.cpp
+        include/TimeUpdate.h
+        src/TimeUpdate.cpp)

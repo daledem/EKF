@@ -135,6 +135,9 @@ Matrix Matrix::operator-()
  
 Matrix Matrix::operator*(const Matrix& matrix2) const
 {
+    if(col != matrix2.fil)
+        throw "Wrong dimensions for matrix multiplication";
+
     Matrix result(fil, matrix2.col);
  
     for (int i = 0; i < this->fil ; i++){
