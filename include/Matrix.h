@@ -29,7 +29,7 @@ class Matrix
         Matrix getFilaByIndex(int fil,int inicio = 1) const;
         Matrix getFilaByIndex(int fil,int inicio,int fin) const;
         Matrix getColumnaByIndex(int col,int inicio = 1) const;
-        Matrix getColumnaByIndex(int fil,int inicio,int fin) const;
+        Matrix getColumnaByIndex(int col,int inicio,int fin) const;
         bool equals(const Matrix& matrix2,const double TOL) const;
         void print();
 

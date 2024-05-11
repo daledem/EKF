@@ -11,7 +11,7 @@
 #include "./PoleMatrix.h"
 #include "./GHAMatrix.h"
 #include "./AccelHarmonic.h"
-#include "./AccelPointMass.h"
+#include "./G_AccelHarmonic.h"
 
 Matrix VarEqn(double x,const Matrix& yPhi);
 

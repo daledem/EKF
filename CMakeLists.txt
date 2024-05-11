@@ -65,4 +65,5 @@ add_executable(Proyecto
         src/DEInteg.cpp
         include/VarEqn.h
         include/G_AccelHarmonic.h
-        src/G_AccelHarmonic.cpp)
+        src/G_AccelHarmonic.cpp
+        src/VarEqn.cpp)
