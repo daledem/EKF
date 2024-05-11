@@ -38,6 +38,7 @@
 #include "./include/Accel.h"
 #include "./include/LTC.h"
 #include "./include/DEInteg.h"
+#include "./include/G_AccelHarmonic.h"
 
 #define TOL_ 10e-14
 
@@ -686,10 +687,40 @@ int DEInteg_01() {
          -6518.08682615261
     };
     Matrix res = Matrix(6,1,vecRes,6);
-    sol.print();
-    (sol-res).print();
 
     _assert(sol.equals(res,0.1));
+
+    return 0;
+}
+
+
+int G_AccelHarmonic_01() {
+    double vecR [] = {
+        7101800.90695315,
+          1293997.58115302,
+           10114.014948955
+    };
+    Matrix r = Matrix(3,1,vecR,3);
+
+    double vecU [] = {
+        -0.984320311904791,0.17638970840918,-0.000440838949610109,
+        -0.176389673507182,-0.984320409906027,-0.000117142904888635,
+     -0.000454589578418276,-3.75467022865179e-05,0.999999895969275
+    };
+    Matrix U = Matrix(3,3,vecU,9);
+
+    Matrix sol(3,1);
+
+    sol = G_AccelHarmonic(r,U,20,20);
+
+    double vecRes [] = {
+        2.02233500257165e-06,5.61803303433805e-07,4.39856240319614e-09,
+      5.61803301435404e-07,-9.58631634517815e-07,8.05634892131479e-10,
+      4.39855909334375e-09,8.0563404905587e-10,-1.06370336962723e-06
+    };
+    Matrix res = Matrix(3,3,vecRes,9);
+
+    _assert(sol.equals(res,TOL_));
 
     return 0;
 }
@@ -733,6 +764,7 @@ int all_tests()
     _verify(LTC_01);
     _verify(TimeUpdate_01);
     _verify(DEInteg_01);
+    _verify(G_AccelHarmonic_01);
  
     return 0;
 }

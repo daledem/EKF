@@ -62,4 +62,7 @@ add_executable(Proyecto
         include/TimeUpdate.h
         src/TimeUpdate.cpp
         include/DEInteg.h
-        src/DEInteg.cpp)
+        src/DEInteg.cpp
+        include/VarEqn.h
+        include/G_AccelHarmonic.h
+        src/G_AccelHarmonic.cpp)
