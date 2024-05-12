@@ -1,13 +1,15 @@
 #include "../include/DEInteg.h"
 
-Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout, double relerr, double abserr, int n_eqn,Matrix &y) {
-    double twou,fouru,epsilon,del,absdel,tend,releps,abseps,x,delsgn,h,hi,
-        temp1,term,psijm1,gamma,eta,p5eps,round,sum,absh,hold,hnew,temp2,
-        temp4,temp5,temp3,temp6,tau,xold,erkm2,erkm1,erk,err,auxrho,erkp1,
-        r;
-    int State_,told,nostep,kle4,kold,ki,ifail,k,kp1,kp2,km1,km2,ns,nsp1,
-        realns,im1,reali,nsm2,limit1,nsp2,limit2,ip1,knew;
-    bool PermitTOUT,stiff,start,OldPermit,crash, phase1,nornd,success;
+#include <cstdio>
+
+Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout, double relerr, double abserr, int n_eqn,Matrix y) {
+    double twou= 0.,fouru= 0.,epsilon= 0.,del= 0.,absdel= 0.,tend= 0.,releps= 0.,abseps= 0.,x= 0.,delsgn= 0.,h= 0.,hi = 0.,
+        temp1= 0.,term= 0.,psijm1= 0.,gamma= 0.,eta= 0.,p5eps= 0.,round= 0.,sum= 0.,absh= 0.,hold= 0.,hnew= 0.,temp2= 0.,
+        temp4= 0.,temp5= 0.,temp3= 0.,temp6= 0.,tau= 0.,xold= 0.,erkm2= 0.,erkm1= 0.,erk= 0.,err= 0.,auxrho= 0.,erkp1= 0.,
+        r= 0.;
+    int State_= 0,told= 0,nostep= 0,kle4= 0,kold = 0,ki = 0,ifail = 0,k = 0,kp1 = 0,kp2 = 0,km1 = 0,km2 = 0,ns = 0,nsp1 = 0,
+        realns = 0,im1 = 0,reali = 0,nsm2 = 0,limit1 = 0,nsp2 = 0,limit2 = 0,ip1 = 0,knew = 0;
+    bool PermitTOUT = false,stiff = false,start = false,OldPermit = false,crash = false, phase1 = false,nornd = false,success = false;
     // maxnum = 500;
     twou  = 2*Const::eps;
     fouru = 4*Const::eps;
@@ -253,6 +255,7 @@ Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout,
         // Repeat blocks 1, 2 (and 3) until step is successful
         //
         while(true) {
+
             //
             // Begin block 1
             //
@@ -447,6 +450,7 @@ Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout,
             success = (err<=epsilon);
 
             if (!success) {
+
                 //
                 // Begin block 3
                 //
@@ -527,7 +531,7 @@ Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout,
                 phi(l,16) = (y(l,1) - p(l,1)) - auxrho;
             }
         }
-        yp = func(x,y);
+        yp = (*func)(x,y);
 
         // Update differences for next step
         for (int l = 1; l <= n_eqn; l++) {

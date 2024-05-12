@@ -4,6 +4,7 @@
 class Matrix
 {
     public:
+        Matrix();
         Matrix(int fil, int col);
         Matrix(int fil, int col, double v[], int n);
         Matrix(const Matrix& m);

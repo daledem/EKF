@@ -75,11 +75,7 @@ int proMat_01()
 
     _assert(sol(1,1) == m1(1,1) && sol(1,2) == m1(1,2) && sol(2,1) == m1(2,1) && sol(2,2) == m1(2,2));
 
-    sol.append(m1).append(m2).print();
-    Matrix prueba = sol.append(m1).append(m2);
-    prueba = (prueba.append(sol));
-    prueba.print();
-    sol.getFilaByIndex(1).print();
+
 
     return 0;
 }
@@ -688,6 +684,7 @@ int DEInteg_01() {
          -6518.08682615261
     };
     Matrix res = Matrix(6,1,vecRes,6);
+
 
     _assert(sol.equals(res,0.1));
 

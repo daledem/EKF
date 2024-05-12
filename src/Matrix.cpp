@@ -4,6 +4,8 @@
 #include <cmath>
 #define TOL_ 10e-14
 
+Matrix::Matrix() : fil(0), col(0),matrix(nullptr){}
+
 Matrix::Matrix(int fil, int col) : fil(fil), col(col)
 {
     initMatrix();
@@ -26,7 +28,7 @@ Matrix::Matrix(int fil, int col, double v[], int n): fil(fil), col(col)
 }
 
 
-Matrix::Matrix(const Matrix& m)
+Matrix::Matrix(const Matrix& m):Matrix()
 {
     *this = m;
 }
@@ -55,11 +57,18 @@ void Matrix::initMatrix()
 
 Matrix& Matrix::operator=(const Matrix& matrix2)
 {
+    if(matrix != nullptr) {
+        for (int i = 0; i < fil; i++)
+            delete[] matrix[i];
+        delete[] matrix;
+    }
 
     this->fil = matrix2.fil;
     this->col = matrix2.col;
 
-    this->initMatrix();
+    matrix = new double*[fil];
+    for (int i = 0; i < fil; i++)
+        matrix[i] = new double[col];
 
     for (int i = 0; i < fil; i++)
         for (int j = 0; j < col; j++)

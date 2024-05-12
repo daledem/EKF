@@ -7,6 +7,6 @@
 #include "./sign_.h"
 #include "./SAT_Const.h"
 
-Matrix DEInteg(Matrix (*func)(double x,const Matrix& Y),double t,double tout,double relerr,double abserr,int n_eqn,Matrix& y);
+Matrix DEInteg(Matrix (*func)(double x,const Matrix& Y),double t,double tout,double relerr,double abserr,int n_eqn,Matrix y);
 
 #endif //DEINTEG_H
