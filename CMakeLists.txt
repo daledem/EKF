@@ -66,4 +66,6 @@ add_executable(Proyecto
         include/VarEqn.h
         include/G_AccelHarmonic.h
         src/G_AccelHarmonic.cpp
-        src/VarEqn.cpp)
+        src/VarEqn.cpp
+        include/MeasUpdate.h
+        src/MeasUpdate.cpp)

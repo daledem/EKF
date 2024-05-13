@@ -22,6 +22,10 @@ class Matrix
         Matrix  operator/(double divisor);
         double& operator()(const int i, const int j) const;
 
+        double determinant();
+        Matrix coFactor();
+        Matrix adjoint();
+        Matrix inverse();
         Matrix trans() const;
         Matrix append(Matrix& matrix2);
         Matrix join(Matrix& matrix2);
@@ -34,6 +38,7 @@ class Matrix
         bool equals(const Matrix& matrix2,const double TOL) const;
         void print();
 
+        static Matrix eye(int n);
         static double dot(const Matrix& matrix1,const Matrix& matrix2);
         static double norm(const Matrix& matrix);
  

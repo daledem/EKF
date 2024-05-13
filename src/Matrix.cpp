@@ -199,6 +199,250 @@ double& Matrix::operator()(const int i, const int j) const
 }
 
 
+double Matrix::determinant() {
+    double det = 0;
+    double **pd = matrix;
+    switch (fil)
+    {
+        case 2:
+        {
+            det = pd[0][0] * pd[1][1] - pd[0][1] * pd[1][0];
+            return det;
+        }
+            break;
+        case 3:
+        {
+            double a = pd[0][0];
+            /***
+            a b c
+            d e f
+            g h i
+ 
+            a b c a b c
+            d e f d e f
+            g h i g h i
+ 
+            // det (A) = aei + bfg + cdh - afh - bdi - ceg.
+            ***/
+            double b = pd[0][1];
+            double c = pd[0][2];
+            double d = pd[1][0];
+            double e = pd[1][1];
+            double f = pd[1][2];
+            double g = pd[2][0];
+            double h = pd[2][1];
+            double i = pd[2][2];
+            double det = (a * e * i + b * f * g + c * d * h);
+            det = det - a * f * h;
+            det = det - b * d * i;
+            det = det - c * e * g;
+            return det;
+        }
+            break;
+        case 4:
+        {
+            Matrix *temp[4];
+            for (int i = 0; i < 4; i++)
+                temp[i] = new Matrix(3, 3);
+            for (int k = 0; k < 4; k++)
+            {
+                for (int i = 1; i < 4; i++)
+                {
+                    int j1 = 0;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (k == j)
+                            continue;
+                        temp[k]->matrix[i - 1][j1++]
+                                        = this->matrix[i][j];
+                    }
+                }
+            }
+            double det = this->matrix[0][0] * temp[0]->determinant()
+                            - this->matrix[0][1] * temp[1]->determinant()
+                            + this->matrix[0][2] * temp[2]->determinant()
+                            - this->matrix[0][3] * temp[3]->determinant();
+            return det;
+        }
+            break;
+        case 5:
+        {
+            Matrix *temp[5];
+            for (int i = 0; i < 5; i++)
+                temp[i] = new Matrix(4, 4);
+            for (int k = 0; k < 5; k++)
+            {
+                for (int i = 1; i < 5; i++)
+                {
+                    int j1 = 0;
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (k == j)
+                            continue;
+                        temp[k]->matrix[i - 1][j1++]
+                                        = this->matrix[i][j];
+                    }
+                }
+            }
+            double det = this->matrix[0][0] * temp[0]->determinant()
+                            - this->matrix[0][1] * temp[1]->determinant()
+                            + this->matrix[0][2] * temp[2]->determinant()
+                            - this->matrix[0][3] * temp[3]->determinant()
+                            + this->matrix[0][4] * temp[4]->determinant();
+            return det;
+        }
+        default:
+        {
+            int DIM = fil;
+            Matrix **temp = new Matrix*[DIM];
+            for (int i = 0; i < DIM; i++)
+                temp[i] = new Matrix( DIM - 1, DIM - 1);
+            for (int k = 0; k < DIM; k++)
+            {
+                for (int i = 1; i < DIM; i++)
+                {
+                    int j1 = 0;
+                    for (int j = 0; j < DIM; j++)
+                    {
+                        if (k == j)
+                            continue;
+                        temp[k]->matrix[i - 1][j1++]
+                                        = this->matrix[i][j];
+                    }
+                }
+            }
+            double det = 0;
+            for (int k = 0; k < DIM; k++)
+            {
+                if ((k % 2) == 0)
+                    det = det + (this->matrix[0][k]
+                                    * temp[k]->determinant());
+                else
+                    det = det - (this->matrix[0][k]
+                                    * temp[k]->determinant());
+            }
+            for (int i = 0; i < DIM; i++)
+                delete temp[i];
+            delete[] temp;
+            return det;
+        }
+            break;
+    }
+}
+
+
+Matrix Matrix::coFactor() {
+    Matrix cofactor(fil, col);
+    if (fil != col)
+        return cofactor;
+    if (fil < 2)
+        return cofactor;
+    else if (fil == 2)
+    {
+        cofactor.matrix[0][0] = matrix[1][1];
+        cofactor.matrix[0][1] = -matrix[1][0];
+        cofactor.matrix[1][0] = -matrix[0][1];
+        cofactor.matrix[1][1] = matrix[0][0];
+        return cofactor;
+    }
+    else if (fil >= 3)
+    {
+        int DIM = fil;
+        Matrix ***temp = new Matrix**[DIM];
+        for (int i = 0; i < DIM; i++)
+            temp[i] = new Matrix*[DIM];
+        for (int i = 0; i < DIM; i++)
+            for (int j = 0; j < DIM; j++)
+                temp[i][j] = new Matrix(DIM - 1, DIM - 1);
+        for (int k1 = 0; k1 < DIM; k1++)
+        {
+            for (int k2 = 0; k2 < DIM; k2++)
+            {
+                int i1 = 0;
+                for (int i = 0; i < DIM; i++)
+                {
+                    int j1 = 0;
+                    for (int j = 0; j < DIM; j++)
+                    {
+                        if (k1 == i || k2 == j)
+                            continue;
+                        temp[k1][k2]->matrix[i1][j1++]
+                                        = this->matrix[i][j];
+                    }
+                    if (k1 != i)
+                        i1++;
+                }
+            }
+        }
+        bool flagPositive = true;
+        for (int k1 = 0; k1 < DIM; k1++)
+        {
+            flagPositive = ((k1 % 2) == 0);
+            for (int k2 = 0; k2 < DIM; k2++)
+            {
+                if (flagPositive == true)
+                {
+                    cofactor.matrix[k1][k2]
+                                    = temp[k1][k2]->determinant();
+                    flagPositive = false;
+                }
+                else
+                {
+                    cofactor.matrix[k1][k2]
+                                    = -temp[k1][k2]->determinant();
+                    flagPositive = true;
+                }
+            }
+        }
+        for (int i = 0; i < DIM; i++)
+            for (int j = 0; j < DIM; j++)
+                delete temp[i][j];
+        for (int i = 0; i < DIM; i++)
+            delete[] temp[i];
+        delete[] temp;
+    }
+    return cofactor;
+}
+
+
+Matrix Matrix::adjoint() {
+    Matrix cofactor(fil, col);
+    Matrix adj(fil, col);
+    if (fil != col)
+        return adj;
+    cofactor = this->coFactor();
+    // adjoint is transpose of a cofactor of a matrix
+    for (int i = 0; i < fil; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            adj.matrix[j][i] = cofactor.matrix[i][j];
+        }
+    }
+    return adj;
+}
+
+
+Matrix Matrix::inverse() {
+    Matrix cofactor(fil, col);
+    Matrix inv(fil, col);
+    if (fil != col)
+        return inv;
+    // to find out Determinant
+    double det = determinant();
+    cofactor = this->coFactor();
+    // inv = transpose of cofactor / Determinant
+    for (int i = 0; i < fil; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            inv.matrix[j][i] = cofactor.matrix[i][j] / det;
+        }
+    }
+    return inv;
+}
+
+
 Matrix Matrix::trans() const
 {
     Matrix result(col,fil);
@@ -321,6 +565,8 @@ Matrix Matrix::getColumnaByIndex(int col,int inicio,int fin) const {
 
 
 bool Matrix::equals(const Matrix &matrix2,const double TOL) const {
+    if(fil != matrix2.fil || col != matrix2.col)
+        return false;
 
     for (int i = 0; i < fil; i++)
         for (int j = 0; j < col; j++)
@@ -339,6 +585,16 @@ void Matrix::print()
         std::cout << std::endl;
     }
     std::cout << std::endl;
+}
+
+
+Matrix Matrix::eye(int n) {
+    Matrix id(n,n);
+
+    for (int i = 1; i <= n; i++)
+        id(i,i) = 1;
+
+    return id;
 }
 
 
@@ -364,8 +620,8 @@ double Matrix::norm(const Matrix& matrix) {
         }
 
         return sqrt(sum);
-
-    }if(matrix.col == 1) {
+    }
+    if(matrix.col == 1) {
         for (int j = 1; j <= matrix.fil; j++){
             sum += matrix(j,1)*matrix(j,1);
         }
