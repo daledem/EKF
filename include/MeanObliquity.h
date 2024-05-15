@@ -1,7 +1,7 @@
 #ifndef MEANOBLIQUITY_H
 #define MEANOBLIQUITY_H
 
-#include "SAT_Const.h"
+#include "./SAT_Const.h"
 
 //--------------------------------------------------------------------------
 //

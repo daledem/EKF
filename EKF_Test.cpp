@@ -66,7 +66,7 @@ int proMat_01()
     Matrix m1(2, 2, v1, 4);
     Matrix m2(2, 2, v2, 4);
     Matrix sol(2, 2);
-    
+
     sol = m1 * m2;
 
     m1.print();
@@ -866,6 +866,7 @@ int MeasUpdate_01() {
           141.436925155353
     };
     Matrix resK = Matrix(6,1,vecResK,6);
+    (K-resK).print();
 
     double vecResY [] = {
         7101597.83995656,
@@ -876,6 +877,7 @@ int MeasUpdate_01() {
          -6736.03539066924
     };
     Matrix resY = Matrix(6,1,vecResY,6);
+    (Y-resY).print();
 
     double vecResP [] = {
         15877.8629771316,-5671.363987998,8540.82446012061,48.5595982363087,-13.3700368251601,22.4252217500515,
@@ -886,6 +888,7 @@ int MeasUpdate_01() {
           22.4252217500515,-26.9419372556561,16.0867101164264,0.0668595526141675,-0.0750233063275534,0.0845546951471356
     };
     Matrix resP = Matrix(6,6,vecResP,36);
+    (P-resP).print();
 
     _assert(K.equals(resK,TOL_));
     _assert(YOut.equals(resY,TOL_));
@@ -937,7 +940,7 @@ int all_tests()
     _verify(G_AccelHarmonic_01);
     _verify(VarEqn_01);
     _verify(MeasUpdate_01);
- 
+
     return 0;
 }
 

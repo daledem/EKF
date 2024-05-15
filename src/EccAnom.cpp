@@ -1,8 +1,5 @@
 #include "../include/EccAnom.h"
 
-#include <cstdio>
-
-
 double EccAnom(double M, double e) {
     int maxit = 15;
     double i = 1;

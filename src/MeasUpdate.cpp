@@ -1,6 +1,6 @@
 #include "../include/MeasUpdate.h"
 
-void MeasUpdate(Matrix &K, Matrix &xOut, Matrix &POut,Matrix& x, double z, double g, double s, Matrix &G, Matrix &P, int n) {
+void MeasUpdate(Matrix &K, Matrix &xOut, Matrix &POut,const Matrix& x, double z, double g, double s,const Matrix &G,const Matrix &P, int n) {
     int m;
     m = 1;
     Matrix Inv_W(m,m);

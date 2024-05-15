@@ -11,8 +11,8 @@ class Matrix
         ~Matrix();
  
         Matrix& operator=(const Matrix& matrix2);
-        Matrix  operator+(const Matrix& matrix2);
-        Matrix  operator+(double sumando);
+        Matrix  operator+(const Matrix& matrix2) const;
+        Matrix  operator+(double sumando) const;
         friend Matrix operator+(const double& escalar,const Matrix& matrix);
         Matrix  operator-(const Matrix& matrix2) const;
         Matrix  operator-();

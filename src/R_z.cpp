@@ -1,8 +1,4 @@
 #include "../include/R_z.h"
-#include "../include/Matrix.h"
-#include <iostream>
-#include <iomanip>
-#include <cmath>
 
 Matrix R_z(double angle)
 {

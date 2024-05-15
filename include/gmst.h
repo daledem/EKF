@@ -2,8 +2,8 @@
 #define GMST_H
 
 #include <cmath>
-#include "Frac.h"
-#include "SAT_Const.h"
+#include "./Frac.h"
+#include "./SAT_Const.h"
 
 double gmst(double Mjd_UT1);
 

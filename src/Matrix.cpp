@@ -78,7 +78,7 @@ Matrix& Matrix::operator=(const Matrix& matrix2)
 }
 
 
-Matrix Matrix::operator+(const Matrix& matrix2)
+Matrix Matrix::operator+(const Matrix& matrix2) const
 {
     Matrix result(fil, col);
     
@@ -90,7 +90,7 @@ Matrix Matrix::operator+(const Matrix& matrix2)
 }
 
 
-Matrix Matrix::operator+(double sumando)
+Matrix Matrix::operator+(double sumando) const
 {
     Matrix result(fil, col);
 
@@ -204,6 +204,9 @@ double Matrix::determinant() {
     double **pd = matrix;
     switch (fil)
     {
+        case 1:
+            det = pd[0][0];
+            return det;
         case 2:
         {
             det = pd[0][0] * pd[1][1] - pd[0][1] * pd[1][0];
@@ -232,7 +235,7 @@ double Matrix::determinant() {
             double g = pd[2][0];
             double h = pd[2][1];
             double i = pd[2][2];
-            double det = (a * e * i + b * f * g + c * d * h);
+            det = (a * e * i + b * f * g + c * d * h);
             det = det - a * f * h;
             det = det - b * d * i;
             det = det - c * e * g;
@@ -258,7 +261,7 @@ double Matrix::determinant() {
                     }
                 }
             }
-            double det = this->matrix[0][0] * temp[0]->determinant()
+            det = this->matrix[0][0] * temp[0]->determinant()
                             - this->matrix[0][1] * temp[1]->determinant()
                             + this->matrix[0][2] * temp[2]->determinant()
                             - this->matrix[0][3] * temp[3]->determinant();
@@ -284,7 +287,7 @@ double Matrix::determinant() {
                     }
                 }
             }
-            double det = this->matrix[0][0] * temp[0]->determinant()
+            det = this->matrix[0][0] * temp[0]->determinant()
                             - this->matrix[0][1] * temp[1]->determinant()
                             + this->matrix[0][2] * temp[2]->determinant()
                             - this->matrix[0][3] * temp[3]->determinant()
@@ -311,7 +314,7 @@ double Matrix::determinant() {
                     }
                 }
             }
-            double det = 0;
+            det = 0;
             for (int k = 0; k < DIM; k++)
             {
                 if ((k % 2) == 0)
@@ -336,7 +339,7 @@ Matrix Matrix::coFactor() {
     if (fil != col)
         return cofactor;
     if (fil < 2)
-        return cofactor;
+        return Matrix::eye(fil);
     else if (fil == 2)
     {
         cofactor.matrix[0][0] = matrix[1][1];

@@ -1,8 +1,5 @@
 #include "../include/JPL_Eph_DE430.h"
 
-#include <cstdio>
-#include <iostream>
-
 extern Matrix PC;
 
 void JPL_Eph_DE430(Matrix &r_Mercury, Matrix &r_Venus, Matrix &r_Earth, Matrix &r_Mars, Matrix &r_Jupiter, Matrix &r_Saturn, Matrix &r_Uranus, Matrix &r_Neptune, Matrix &r_Pluto, Matrix &r_Moon, Matrix &r_Sun, double Mjd_TDB) {

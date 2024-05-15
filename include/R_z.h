@@ -1,7 +1,8 @@
 #ifndef PROYECTO_R_Z_H
 #define PROYECTO_R_Z_H
 
-#include "Matrix.h"
+#include <cmath>
+#include "./Matrix.h"
 
 //--------------------------------------------------------------------------
 //  input:

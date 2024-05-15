@@ -1,11 +1,8 @@
-//
-// Created by daledem on 18/04/2024.
-//
-
 #ifndef PROYECTO_R_Y_H
 #define PROYECTO_R_Y_H
 
-#include "Matrix.h"
+#include "./Matrix.h"
+#include <cmath>
 
 //--------------------------------------------------------------------------
 //  input:

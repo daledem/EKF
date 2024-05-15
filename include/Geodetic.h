@@ -2,8 +2,8 @@
 #define GEODETIC_H
 
 #include <cmath>
-#include "Matrix.h"
-#include "SAT_Const.h"
+#include "./Matrix.h"
+#include "./SAT_Const.h"
 
 void Geodetic(double& lon, double& lat, double& h, const Matrix& r);
 

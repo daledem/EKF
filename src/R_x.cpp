@@ -1,8 +1,4 @@
 #include "../include/R_x.h"
-#include "../include/Matrix.h"
-#include <iostream>
-#include <iomanip>
-#include <cmath>
 
 Matrix R_x(double angle)
 {

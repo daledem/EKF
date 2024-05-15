@@ -1,6 +1,5 @@
 #include "../include/NutAngles.h"
 
-
 void NutAngles(double& dpsi,double& deps,double Mjd_TT) {
        double T  = (Mjd_TT-Const::MJD_J2000)/36525;
        double T2 = T*T;

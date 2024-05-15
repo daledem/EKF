@@ -1,7 +1,5 @@
 #include "../include/DEInteg.h"
 
-#include <cstdio>
-
 Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout, double relerr, double abserr, int n_eqn,Matrix y) {
     double twou= 0.,fouru= 0.,epsilon= 0.,del= 0.,absdel= 0.,tend= 0.,releps= 0.,abseps= 0.,x= 0.,delsgn= 0.,h= 0.,hi = 0.,
         temp1= 0.,term= 0.,psijm1= 0.,gamma= 0.,eta= 0.,p5eps= 0.,round= 0.,sum= 0.,absh= 0.,hold= 0.,hnew= 0.,temp2= 0.,
