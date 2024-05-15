@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "../include/DEInteg.h"
 
 Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout, double relerr, double abserr, int n_eqn,Matrix y) {
@@ -150,7 +151,7 @@ Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout,
         // extrapolate and return
         if ( !PermitTOUT && ( fabs(tout-x) < fouru*fabs(x) ) ) {
             h = tout - x;
-            yp = func(x,yy);          // Compute derivative yp(x)
+            yp = (*func)(x,yy);          // Compute derivative yp(x)
             y = yy + h*yp;                // Extrapolate vector from x to tout
             State_    = DE_STATE.DE_DONE; // Set return code
             t         = tout;             // Set independent variable
@@ -218,7 +219,7 @@ Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout,
 
         if (start){
             // Initialize. Compute appropriate step size for first step.
-            yp = func(x,y);
+            yp = (*func)(x,y);
             sum = 0.0;
             for(int l = 1; l <= n_eqn; l++) {
                 phi(l,2) = yp(l,1);
@@ -392,7 +393,7 @@ Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout,
             x = x + h;
             absh = fabs(h);
 
-            yp = func(x,p);
+            yp = (*func)(x,p);
 
             // Estimate errors at orders k, k-1, k-2
             erkm2 = 0.0;

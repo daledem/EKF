@@ -15,6 +15,8 @@ class Matrix
         Matrix  operator+(double sumando) const;
         friend Matrix operator+(const double& escalar,const Matrix& matrix);
         Matrix  operator-(const Matrix& matrix2) const;
+        Matrix  operator-(double resta) const;
+        friend Matrix  operator-(const double& escalar,const Matrix& matrix);
         Matrix  operator-();
         Matrix  operator*(const Matrix& matrix2) const;
         Matrix  operator*(double multiplicador) const;

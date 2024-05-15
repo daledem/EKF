@@ -126,6 +126,30 @@ Matrix Matrix::operator-(const Matrix& matrix2) const
 }
 
 
+Matrix Matrix::operator-(double escalar) const
+{
+    Matrix result(fil, col);
+
+    for (int i = 0; i < fil; i++)
+        for (int j = 0; j < col; j++)
+            result.matrix[i][j] = matrix[i][j] - escalar;
+
+    return result;
+}
+
+
+Matrix operator-(const double& escalar,const Matrix& matrix)
+{
+    Matrix result(matrix.fil,matrix.col);
+
+    for (int i = 0; i < matrix.fil; i++)
+        for (int j = 0; j < matrix.col; j++)
+            result.matrix[i][j] = matrix.matrix[i][j] - escalar;
+
+    return result;
+}
+
+
 Matrix Matrix::operator-()
 {
     Matrix result(fil, col);
