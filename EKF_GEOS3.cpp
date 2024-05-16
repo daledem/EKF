@@ -1,27 +1,16 @@
-#include <assert.h>
-#include <iostream>
-#include <iomanip>
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
 
 #include "./include/TimeUpdate.h"
 #include "./include/VarEqn.h"
-#include "./include/Globals.h"
-#include "./include/Matrix.h"
-#include "./include/R_z.h"
-#include "./include/timediff.h"
 #include "./include/Position.h"
 #include "./include/Mjday.h"
 #include "./include/AzElPa.h"
-#include "./include/IERS.h"
-#include "./include/gmst.h"
 #include "./include/Accel.h"
 #include "./include/LTC.h"
 #include "./include/DEInteg.h"
 #include "./include/MeasUpdate.h"
-
-#include "./include/SAT_Const.h"
 
 using namespace std;
 
@@ -288,13 +277,13 @@ int main() {
      double Y_true[] = {5753.173e3, 2673.361e3, 3440.304e3, 4.324207e3, -1.924299e3, -5.728216e3};
 
      printf("\nError of Position Estimation\n");
-     printf("dX %lf [m]\n",Y0(1,1)-Y_true[0]);
-     printf("dY %lf [m]\n",Y0(2,1)-Y_true[1]);
-     printf("dZ %lf [m]\n",Y0(3,1)-Y_true[2]);
+     printf("dX %.1f [m]\n",Y0(1,1)-Y_true[0]);
+     printf("dY %.1f [m]\n",Y0(2,1)-Y_true[1]);
+     printf("dZ %.1f [m]\n",Y0(3,1)-Y_true[2]);
      printf("\nError of Velocity Estimation\n");
-     printf("dVx %lf [m/s]\n",Y0(4,1)-Y_true[3]);
-     printf("dVy %lf [m/s]\n",Y0(5,1)-Y_true[4]);
-     printf("dVz %lf [m/s]\n",Y0(6,1)-Y_true[5]);
+     printf("dVx %.1f [m/s]\n",Y0(4,1)-Y_true[3]);
+     printf("dVy %.1f [m/s]\n",Y0(5,1)-Y_true[4]);
+     printf("dVz %.1f [m/s]\n",Y0(6,1)-Y_true[5]);
 
      return 0;
  }
