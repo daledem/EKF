@@ -1,63 +1,42 @@
- #include <assert.h>
- #include <iostream>
- #include <iomanip>
- #include <stdio.h>
- #include <math.h>
- #include <string.h>
+#include <assert.h>
+#include <iostream>
+#include <iomanip>
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
 
- #include "./include/TimeUpdate.h"
- #include "./include/VarEqn.h"
- #include "./include/Globals.h"
- #include "./include/Matrix.h"
- #include "./include/R_x.h"
- #include "./include/R_y.h"
- #include "./include/R_z.h"
- #include "./include/sign_.h"
- #include "./include/unit.h"
- #include "./include/timediff.h"
- #include "./include/Position.h"
- #include "./include/Mjday_TDB.h"
- #include "./include/Mjday.h"
- #include "./include/MeanObliquity.h"
- #include "./include/Legendre.h"
- #include "./include/Geodetic.h"
- #include "./include/Frac.h"
- #include "./include/EccAnom.h"
- #include "./include/NutAngles.h"
- #include "./include/AccelPointMass.h"
- #include "./include/AzElPa.h"
- #include "./include/Cheb3D.h"
- #include "./include/IERS.h"
- #include "./include/gmst.h"
- #include "./include/EqnEquinox.h"
- #include "./include/gast.h"
- #include "./include/PrecMatrix.h"
- #include "./include/PoleMatrix.h"
- #include "./include/GHAMatrix.h"
- #include "./include/AccelHarmonic.h"
- #include "./include/JPL_Eph_DE430.h"
- #include "./include/NutMatrix.h"
- #include "./include/Accel.h"
- #include "./include/LTC.h"
- #include "./include/DEInteg.h"
- #include "./include/G_AccelHarmonic.h"
- #include "./include/MeasUpdate.h"
+#include "./include/TimeUpdate.h"
+#include "./include/VarEqn.h"
+#include "./include/Globals.h"
+#include "./include/Matrix.h"
+#include "./include/R_z.h"
+#include "./include/timediff.h"
+#include "./include/Position.h"
+#include "./include/Mjday.h"
+#include "./include/AzElPa.h"
+#include "./include/IERS.h"
+#include "./include/gmst.h"
+#include "./include/Accel.h"
+#include "./include/LTC.h"
+#include "./include/DEInteg.h"
+#include "./include/MeasUpdate.h"
 
- #include "./include/SAT_Const.h"
+#include "./include/SAT_Const.h"
 
- using namespace std;
+using namespace std;
 
- Matrix Snm(181,181);
- Matrix Cnm(181,181);
- Matrix PC(2285,1020);
- Matrix eopdata(13,21413);
- struct auxParam AuxParam;
+Matrix Snm(181,181);
+Matrix Cnm(181,181);
+Matrix PC(2285,1020);
+Matrix eopdata(13,21413);
+struct auxParam AuxParam;
 
- int main() {
+int main() {
      double x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,
          t_old,n_eqn,UT1_TAI,UTC_GPS,UT1_GPS,TT_UTC,GPS_UTC,Mjd_TT,
          Mjd_UT1,theta,Azim,Elev,Dist;
      int nobs;
+     Matrix K;
 
      // Cargamos PC con los datos de DE430Coeff
      FILE *fid = fopen("../data/M_tab.txt","r");
@@ -252,14 +231,12 @@
              }
          }
 
-         yPhi.print();
          yPhi = DEInteg (VarEqn,0,t-t_old,1e-13,1e-6,42,yPhi);
 
          // Extract state transition matrices
          for (int j = 1 ; j <= 6; j++)
              for (int p = 1; p <= 6; p++)
                  Phi(p,j) = yPhi(6*j+p,1);
-
 
          Y = DEInteg (Accel,0,t-t_old,1e-13,1e-6,6,Y_old);
 
@@ -279,8 +256,7 @@
          Matrix dAdY = (dAds*LT*U).append(aux);
 
          // Measurement update
-         Matrix K;
-         MeasUpdate (K,Y,P, Y, obs(i,2), Azim, sigma_az, dAdY, P, 6 );
+         MeasUpdate (K, Y, obs(i,2), Azim, sigma_az, dAdY, P, 6 );
 
          // Elevation and partials
          r = Y.getColumnaByIndex(1,1,3);
@@ -289,9 +265,7 @@
          Matrix dEdY = (dEds*LT*U).append(aux);
 
          // Measurement update
-
-         MeasUpdate (K,Y,P, Y, obs(i,3), Elev, sigma_el, dEdY, P, 6 );
-
+         MeasUpdate (K,Y, obs(i,3), Elev, sigma_el, dEdY, P, 6 );
 
          // Range and partials
          r = Y.getColumnaByIndex(1,1,3);
@@ -301,7 +275,7 @@
          Matrix dDdY = (dDds*LT*U).append(aux);
 
          // Measurement update
-         MeasUpdate (K,Y,P,  Y, obs(i,4), Dist, sigma_range, dDdY, P, 6 );
+         MeasUpdate (K,Y, obs(i,4), Dist, sigma_range, dDdY, P, 6 );
      }
 
      IERS(x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,eopdata,obs(46,1),'l');
@@ -309,7 +283,6 @@
      Mjd_TT = Mjd_UTC + TT_UTC/86400;
      AuxParam.Mjd_UTC = Mjd_UTC;
      AuxParam.Mjd_TT = Mjd_TT;
-     Y.print();
      Matrix Y0 = DEInteg (Accel,0,-(obs(46,1)-obs(1,1))*86400.0,1e-13,1e-6,6,Y);
 
      double Y_true[] = {5753.173e3, 2673.361e3, 3440.304e3, 4.324207e3, -1.924299e3, -5.728216e3};

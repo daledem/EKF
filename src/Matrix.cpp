@@ -626,16 +626,26 @@ Matrix Matrix::eye(int n) {
 
 
 double Matrix::dot(const Matrix &matrix1, const Matrix &matrix2) {
-    if(matrix1.col != matrix2.col)
-        throw "Different dimensions";
-
     double sum = 0.0;
 
-    for (int j = 1; j <= matrix1.col; j++){
-        sum += matrix1(1,j)*matrix2(1,j);
+    if(matrix1.fil == 1 && matrix1.col == matrix2.col) {
+        for (int j = 1; j <= matrix1.col; j++){
+            sum += matrix1(1,j)*matrix2(1,j);
+        }
+
+        return sum;
     }
 
-    return sum;
+    if(matrix1.col == 1 && matrix1.fil == matrix2.fil) {
+        for (int j = 1; j <= matrix1.fil; j++){
+            sum += matrix1(j,1)*matrix2(j,1);
+        }
+
+        return sum;
+    }
+
+    printf("Wrong matrix dimensions for dot");
+    exit(EXIT_FAILURE);
 }
 
 
