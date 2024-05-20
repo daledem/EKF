@@ -8,7 +8,7 @@
 // R_z(double angle)
 //------------------------------------------------------------------------------
 /**
-* Calculates rotation matrix for x direction.
+* Calculates rotation matrix for the z direction.
 *
 * @param <angle> angle of rotation [rad]
 *

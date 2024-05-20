@@ -8,7 +8,7 @@
 // R_x(double angle)
 //------------------------------------------------------------------------------
 /**
-* Calculates rotation matrix for x direction.
+* Calculates rotation matrix for the x direction.
 *
 * @param <angle> angle of rotation [rad]
 *

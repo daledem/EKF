@@ -3,22 +3,18 @@
 
 #include "./SAT_Const.h"
 
-//--------------------------------------------------------------------------
-//
-// MeanObliquity.m
-//
-// Purpose:
-//   Computes the mean obliquity of the ecliptic
-//
-// Input:
-//   Mjd_TT    Modified Julian Date (Terrestrial Time)
-// 
-// Output:
-//   MOblq     Mean obliquity of the ecliptic [rad]
-//
-// Last modified:   2015/08/12   M. Mahooti
-// 
-//--------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// MeanObliquity(double Mjd_TT)
+//------------------------------------------------------------------------------
+/**
+*   Computes the mean obliquity of the ecliptic
+*
+* @param <Mjd_TT> Geodetic East longitude [rad]
+*
+* @return Mean obliquity of the ecliptic [rad]
+*
+*/
+//------------------------------------------------------------------------------
 
 double MeanObliquity(double Mjd_TT);
 

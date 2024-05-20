@@ -24,10 +24,12 @@ class Matrix
         Matrix  operator/(double divisor);
         double& operator()(const int i, const int j) const;
 
+        // codigo para las siguientes funciones obtenido de https://www.sanfoundry.com/cpp-program-find-inverse-matrix/
         double determinant();
         Matrix coFactor();
         Matrix adjoint();
         Matrix inverse();
+        //
         Matrix trans() const;
         Matrix append(Matrix& matrix2);
         Matrix join(Matrix& matrix2);
