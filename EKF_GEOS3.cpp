@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <iostream>
 #include <math.h>
 #include <string.h>
 
@@ -27,6 +27,18 @@ int main() {
      int nobs;
      Matrix K;
 
+    /**
+     * IMPORTANTE: Por como funciona Clion, cuando ejecutas el main,
+     * aun si este esta en la misma carpeta que data, el cwd en el
+     * momento de ejecución es otro, por lo que hace falta los ../
+     * al principio del path pasado como parametro a fopen. Sin
+     * embargo, al compilarlo y ejecutarlo desde consola esto no
+     * ocurre, por lo que es necesario eliminar el '../' que se
+     * encuentra al principio del path.
+     * Escribo esta explicación en caso de que se me olvide realizar
+     * dicho cambio antes de entregar el codigo y no funcione
+     * cuando lo intentes ejecutar desde consola
+    **/
      // Cargamos PC con los datos de DE430Coeff
      FILE *fid = fopen("../data/M_tab.txt","r");
 
@@ -96,36 +108,37 @@ int main() {
          exit(EXIT_FAILURE);
      }
 
-     char tline[256];
+     char tline[56];
+     char yy[5],mm[3],dd[3],hh[3],min[3],ss[7],azz[9],ell[7],dist[10];
      int i = 1;
      while (fgets(tline, sizeof(tline), fid) && i <= nobs) {
-         char substring[55];
-         strncpy(substring,tline,4);
-         int Y = atoi(substring);
 
-         strncpy(substring,tline + 5,7);
-         int M = atoi(substring);
+         strncpy(yy,tline,4);
+         int Y = atoi(yy);
 
-         strncpy(substring,tline + 8,10);
-         int D = atoi(substring);
+         strncpy(mm,tline + 5,7);
+         int M = atoi(mm);
 
-         strncpy(substring,tline + 12,14);
-         int h = atoi(substring);
+         strncpy(dd,tline + 8,10);
+         int D = atoi(dd);
 
-         strncpy(substring,tline + 15,17);
-         int m = atoi(substring);
+         strncpy(hh,tline + 12,14);
+         int h = atoi(hh);
 
-         strncpy(substring,tline + 18,24);
-         double s = atof(substring);
+         strncpy(min,tline + 15,17);
+         int m = atoi(min);
 
-         strncpy(substring,tline + 25,33);
-         double az = atof(substring);
+         strncpy(ss,tline + 18,24);
+         double s = atof(ss);
 
-         strncpy(substring,tline + 35,42);
-         double el = atof(substring);
+         strncpy(azz,tline + 25,33);
+         double az = atof(azz);
 
-         strncpy(substring,tline + 44,54);
-         double Dist = atof(substring);
+         strncpy(ell,tline + 35,42);
+         double el = atof(ell);
+
+         strncpy(dist,tline + 44,54);
+         double Dist = atof(dist);
 
          obs(i,1) = Mjday(Y,M,D,h,m,s);
          obs(i,2) = Const::Rad*az;
