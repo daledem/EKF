@@ -43,6 +43,7 @@ class Matrix
         void print();
 
         static Matrix eye(int n);
+        static Matrix cross(const Matrix& matrix1,const Matrix& matrix2);
         static double dot(const Matrix& matrix1,const Matrix& matrix2);
         static double norm(const Matrix& matrix);
  

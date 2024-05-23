@@ -625,10 +625,34 @@ Matrix Matrix::eye(int n) {
 }
 
 
+Matrix Matrix::cross(const Matrix &matrix1, const Matrix &matrix2) {
+    if(matrix1.fil == 1 && matrix1.col == matrix2.col && matrix1.fil == matrix2.fil) {
+        Matrix result(1,matrix1.col);
+
+        result(1,1) = -matrix1(1,3)*matrix2(1,2) + matrix1(1,2)*matrix2(1,3);
+        result(1,2) = matrix1(1,3)*matrix2(1,1) - matrix1(1,1)*matrix2(1,3);
+        result(1,3) =  -matrix1(1,2)*matrix2(1,1) + matrix1(1,1)*matrix2(1,2);
+
+        return result;
+    }
+/* TODO
+    if(matrix1.col == 1 && matrix1.fil == matrix2.fil && matrix1.col == matrix2.col) {
+        for (int j = 1; j <= matrix1.fil; j++){
+            sum += matrix1(j,1)*matrix2(j,1);
+        }
+
+        return sum;
+    }
+*/
+    printf("Wrong matrix dimensions for dot");
+    exit(EXIT_FAILURE);
+}
+
+
 double Matrix::dot(const Matrix &matrix1, const Matrix &matrix2) {
     double sum = 0.0;
 
-    if(matrix1.fil == 1 && matrix1.col == matrix2.col) {
+    if(matrix1.fil == 1 && matrix1.col == matrix2.col && matrix1.fil == matrix2.fil) {
         for (int j = 1; j <= matrix1.col; j++){
             sum += matrix1(1,j)*matrix2(1,j);
         }
@@ -636,7 +660,7 @@ double Matrix::dot(const Matrix &matrix1, const Matrix &matrix2) {
         return sum;
     }
 
-    if(matrix1.col == 1 && matrix1.fil == matrix2.fil) {
+    if(matrix1.col == 1 && matrix1.fil == matrix2.fil && matrix1.col == matrix2.col) {
         for (int j = 1; j <= matrix1.fil; j++){
             sum += matrix1(j,1)*matrix2(j,1);
         }
