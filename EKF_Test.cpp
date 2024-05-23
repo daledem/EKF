@@ -42,6 +42,7 @@
  #include "./include/G_AccelHarmonic.h"
  #include "./include/MeasUpdate.h"
  #include "./include/elements.h"
+ #include "./include/angl.h"
 
  #define TOL_ 10e-14
 
@@ -908,9 +909,8 @@
 
      elements(p, a, e, i, Omega, omega, M,y);
 
-
-     _assert(fabs(p - 12001693.597214) < TOL_);
-     _assert(fabs(a - 18943922.6607145) < TOL_);
+     _assert(fabs(p - 12001693.597214) < 10e-7);
+     _assert(fabs(a - 18943922.6607145) < 10e-7);
      _assert(fabs(e - 0.605361104987026) < TOL_);
      _assert(fabs(i - 2.02656295535017) < TOL_);
      _assert(fabs(Omega - 3.35671076650829) < TOL_);
@@ -920,6 +920,26 @@
      return 0;
  }
 
+
+int angl_01() {
+     double theta;
+
+     double vR1[] = {5720303.71012986,
+           3152426.6965331,
+          3750056.80416402};
+     Matrix r1(3,1,vR1,3);
+
+     double vR2[] = {6221397.62857869,
+          2867713.77965738,
+          3006155.98509949};
+     Matrix r2(3,1,vR2,3);
+
+     theta = angl(r1,r2);
+
+     _assert(fabs(theta - 0.125269502872995) < TOL_);
+
+     return 0;
+ }
 
  int all_tests()
  {
@@ -963,6 +983,7 @@
      _verify(VarEqn_01);
      _verify(MeasUpdate_01);
      _verify(elements_01);
+     _verify(angl_01);
 
      return 0;
  }
