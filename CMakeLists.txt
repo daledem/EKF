@@ -80,4 +80,9 @@ add_executable(Proyecto
         include/hgibbs.h
         src/hgibbs.cpp
         include/gibbs.h
-        src/gibbs.cpp)
+        src/gibbs.cpp
+        include/anglesg.h
+        src/anglesg.cpp
+        include/rpoly.h
+        src/rpoly.cpp
+)
