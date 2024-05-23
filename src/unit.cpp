@@ -1,6 +1,5 @@
 #include "../include/unit.h"
 
-
 Matrix unit(const Matrix& vec){
     double small = 0.000001;
     double magv = Matrix::norm(vec);

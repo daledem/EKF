@@ -74,4 +74,10 @@ add_executable(Proyecto
         include/angl.h
         src/angl.cpp
         include/sign.h
-        src/sign.cpp)
+        src/sign.cpp
+        include/doubler.h
+        src/doubler.cpp
+        include/hgibbs.h
+        src/hgibbs.cpp
+        include/gibbs.h
+        src/gibbs.cpp)

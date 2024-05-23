@@ -43,6 +43,9 @@
  #include "./include/MeasUpdate.h"
  #include "./include/elements.h"
  #include "./include/angl.h"
+ #include "./include/doubler.h"
+#include "./include/hgibbs.h"
+#include "./include/gibbs.h"
 
  #define TOL_ 10e-14
 
@@ -941,6 +944,145 @@ int angl_01() {
      return 0;
  }
 
+
+int doubler_01() {
+     double f1,f2,q1,magr1,magr2,a,deltae32;
+
+     double vLos1[] = {-0.0514407086877254,
+         0.838593165124504,
+          0.54232403311689};
+     Matrix los1(3,1,vLos1,3);
+
+     double vLos2[] = {0.185350449302478,
+         0.924321654007447,
+         0.333578612738146};
+     Matrix los2(3,1,vLos2,3);
+
+     double vLos3[] = {0.489992086298769,
+          0.86577353456705,
+         -0.10170517296508};
+     Matrix los3(3,1,vLos3,3);
+
+     double vRsite1[] = {5854667.14002558,
+          962016.478096048,
+          2333503.27946785};
+     Matrix rsite1(3,1,vRsite1,3);
+
+     double vRsite2[] = {5847642.25665158,
+          1003838.15985758,
+          2333501.56780477};
+     Matrix rsite2(3,1,vRsite2,3);
+
+     double vRsite3[] = {5839554.60139875,
+          1049867.90406392,
+          2333499.52243618};
+     Matrix rsite3(3,1,vRsite3,3);
+
+     Matrix r2(3,1);
+     Matrix r3(3,1);
+
+     doubler(r2,r3,f1,f2,q1,magr1,magr2,a,deltae32,3542174.25253467,5580277.36743298,6375565.90271882,6375565.90271882,
+         7232409.19024033,7230729.66707348,los1,los2,los3,rsite1,rsite2,rsite3,-97.9999914765358,108.000017702579,'y');
+
+     double vR2[] = {6.147303745912716*1.0e+06,
+   2.498215996213244*1.0e+06,
+   2.872807861665693*1.0e+06};
+     Matrix r2Expc(3,1,vR2,3);
+
+     double vR3[] = {6.515289823716909*1.0e+06,
+   2.243833456195559*1.0e+06,
+   2.193240588493806*1.0e+06};
+     Matrix r3Expc(3,1,vR3,3);
+
+     _assert(r2.equals(r2Expc,10e-9));
+     _assert(r3.equals(r3Expc,10e-9));
+     _assert(fabs(f1 + 2.063075044134166e-09) < 10e-9);
+     _assert(fabs(f2 - 4.628583383237128e-08) < 10e-9);
+     _assert(fabs(q1 - 4.633178921858744e-08) < 10e-9);
+     _assert(fabs(magr1 - 7.232409190240329e+06) < 10e-9);
+     _assert(fabs(magr2 - 7.230729667073472e+06) < 10e-9);
+     _assert(fabs(a - 7.458444095976775e+06) < 10e-7);
+     _assert(fabs(deltae32 - 0.109188763779170) < 10e-9);
+
+     return 0;
+ }
+
+int hgibbs_01() {
+     double theta,theta1,copa;
+     string error;
+
+     double vR1[] = {5720303.71012986,
+           3152426.6965331,
+          3750056.80416402};
+     Matrix r1(3,1,vR1,3);
+
+     double vR2[] = {6221397.62857869,
+          2867713.77965738,
+          3006155.98509949};
+     Matrix r2(3,1,vR2,3);
+
+     double vR3[] = {6699811.80976796,
+          2569867.80763881,
+          2154940.29542389};
+     Matrix r3(3,1,vR3,3);
+
+     Matrix v2(3,1);
+
+     hgibbs(v2,theta,theta1,copa,error,r1,r2,r3,49746.1101504629,49746.1112847221,49746.1125347223);
+
+     double vV2[] = {4796.82507080883,
+         -2839.41807616618,
+         -7741.59421072284};
+     Matrix v2Expc(3,1,vV2,3);
+
+     _assert(v2.equals(v2Expc,10e-12));
+     _assert(fabs(theta - 0.125269502872995) < TOL_);
+     _assert(fabs(theta1 - 0.136454013492469) < TOL_);
+     _assert(fabs(copa - 0.00509723347775616) < TOL_);
+     _assert(error == "   angl > 1ø");
+
+     return 0;
+ }
+
+
+int gibbs_01() {
+     double theta,theta1,copa;
+     string error;
+
+     double vR1[] = {5720303.71012986,
+           3152426.6965331,
+          3750056.80416402};
+     Matrix r1(3,1,vR1,3);
+
+     double vR2[] = {6221397.62857869,
+          2867713.77965738,
+          3006155.98509949};
+     Matrix r2(3,1,vR2,3);
+
+     double vR3[] = {6699811.80976796,
+          2569867.80763881,
+          2154940.29542389};
+     Matrix r3(3,1,vR3,3);
+
+     Matrix v2(3,1);
+
+     gibbs(v2,theta,theta1,copa,error,r1,r2,r3);
+
+     double vV2[] = {4645.04725161805,
+         -2752.21591588211,
+         -7507.99940987023};
+     Matrix v2Expc(3,1,vV2,3);
+
+     _assert(v2.equals(v2Expc,10e-10));
+     _assert(fabs(theta - 0.125269502872995) < TOL_);
+     _assert(fabs(theta1 - 0.136454013492469) < TOL_);
+     _assert(fabs(copa - 0.00509723347775616) < TOL_);
+     _assert(error == "          ok");
+
+     return 0;
+ }
+
+
  int all_tests()
  {
      _verify(proMat_01);
@@ -984,6 +1126,9 @@ int angl_01() {
      _verify(MeasUpdate_01);
      _verify(elements_01);
      _verify(angl_01);
+     _verify(doubler_01);
+     _verify(hgibbs_01);
+     _verify(gibbs_01);
 
      return 0;
  }
