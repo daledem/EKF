@@ -85,4 +85,6 @@ add_executable(Proyecto
         src/anglesg.cpp
         include/rpoly.h
         src/rpoly.cpp
+        include/anglesdr.h
+        src/anglesdr.cpp
 )

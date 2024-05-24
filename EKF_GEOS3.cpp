@@ -12,6 +12,7 @@
 #include "./include/DEInteg.h"
 #include "./include/MeasUpdate.h"
 #include "./include/anglesg.h"
+#include "./include/anglesdr.h"
 
 using namespace std;
 
@@ -169,6 +170,8 @@ int main() {
     Matrix v2(3,1);
     anglesg(r2,v2,obs(1,2),obs(9,2),obs(18,2),obs(1,3),obs(9,3),obs(18,3),
                  Mjd1,Mjd2,Mjd3,Rs,Rs,Rs);
+    //anglesdr(r2,v2,obs(1,2),obs(9,2),obs(18,2),obs(1,3),obs(9,3),obs(18,3),
+    //             Mjd1,Mjd2,Mjd3,Rs,Rs,Rs);
 
      Matrix Y0_apr = r2.join(v2);
 
