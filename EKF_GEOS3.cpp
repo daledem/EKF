@@ -99,7 +99,7 @@ int main() {
      }
 
      char tline[56];
-     char yy[5],mm[3],dd[3],hh[3],min[3],ss[7],azz[9],ell[7],dist[10];
+     char yy[56],mm[56],dd[56],hh[56],min[56],ss[56],azz[56],ell[56],dist[56];
      int i = 1;
      while (fgets(tline, sizeof(tline), fid) && i <= nobs) {
 
