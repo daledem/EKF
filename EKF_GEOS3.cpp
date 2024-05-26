@@ -29,20 +29,8 @@ int main() {
      int nobs;
      Matrix K;
 
-    /**
-     * IMPORTANTE: Por como funciona Clion, cuando ejecutas el main,
-     * aun si este esta en la misma carpeta que data, el cwd en el
-     * momento de ejecución es otro, por lo que hace falta los ../
-     * al principio del path pasado como parametro a fopen. Sin
-     * embargo, al compilarlo y ejecutarlo desde consola esto no
-     * ocurre, por lo que es necesario eliminar el '../' que se
-     * encuentra al principio del path.
-     * Escribo esta explicación en caso de que se me olvide realizar
-     * dicho cambio antes de entregar el codigo y no funcione
-     * cuando lo intentes ejecutar desde consola
-    **/
      // Cargamos PC con los datos de DE430Coeff
-     FILE *fid = fopen("../data/M_tab.txt","r");
+     FILE *fid = fopen("data/M_tab.txt","r");
 
      if(fid == NULL){
          printf("Fail to open DE430Coeff.txt");
@@ -60,7 +48,7 @@ int main() {
 
 
      // Cargamos Snm y Cnm con los datos de GGM03S
-     fid = fopen("../data/GGM03S.txt","r");
+     fid = fopen("data/GGM03S.txt","r");
      int aux1,aux2;
      double aux3,aux4;
      if(fid == NULL){
@@ -84,7 +72,7 @@ int main() {
      AuxParam.m = 0;
 
      // Cargamos eopdata con los datos de eop19620101
-     fid = fopen("../data/eop19620101.txt","r");
+     fid = fopen("data/eop19620101.txt","r");
 
      if(fid == NULL){
          printf("Fail to open eop19620101.txt");
@@ -103,7 +91,7 @@ int main() {
      nobs = 46;
      Matrix obs(nobs,4);
 
-     fid = fopen("../data/GEOS3.txt","r");
+     fid = fopen("data/GEOS3.txt","r");
 
      if(fid == NULL) {
          printf("Fail to open GEOS3.txt");
