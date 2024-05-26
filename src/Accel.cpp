@@ -1,8 +1,36 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/10
+//
+//------------------------------------------------------------------------------
 #include "../include/Accel.h"
 
 extern struct auxParam AuxParam;
 extern Matrix eopdata;
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// Matrix Accel(double x,const Matrix& Y)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the acceleration of an Earth orbiting satellite due to
+ *    - the Earth's harmonic gravity field,
+ *    - the gravitational perturbations of the Sun and Moon
+ *    - the solar radiation pressure and
+ *    - the atmospheric drag
+ *
+ * @param <Mjd_TT> Terrestrial Time (Modified Julian Date)
+ * @param <Y> Satellite state vector in the ICRF/EME2000 system
+ *
+ * @return Acceleration (a=d^2r/dt^2) in the ICRF/EME2000 system
+ */
+//------------------------------------------------------------------------------
 Matrix Accel(double x, const Matrix &Y) {
     double x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,UT1_TAI,UTC_GPS,UT1_GPS,TT_UTC,GPS_UTC,Mjd_UT1,
         Mjd_TT,MJD_TDB;

@@ -1,5 +1,34 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/02
+//
+//------------------------------------------------------------------------------
 #include "../include/Cheb3D.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// Matrix Cheb3D(double t,int N,double Ta,double Tb,const Matrix& Cx,const Matrix& Cy,const Matrix& Cz)
+//------------------------------------------------------------------------------
+/**
+ *   Chebyshev approximation of 3-dimensional vectors
+ *
+ * @param <t> interval
+ * @param <N> Number of coefficients
+ * @param <Ta> Begin interval
+ * @param <Tb> End interval
+ * @param <Cx> Coefficients of Chebyshev polyomial (x-coordinate)
+ * @param <Cy> Coefficients of Chebyshev polyomial (y-coordinate)
+ * @param <Cz> Coefficients of Chebyshev polyomial (z-coordinate)
+ *
+ * @return ChebApp
+ */
+//------------------------------------------------------------------------------
 Matrix Cheb3D(double t, int N, double Ta, double Tb,const Matrix &Cx,const Matrix &Cy,const Matrix &Cz) {
     // Check validity
     if ( (t<Ta) || (Tb<t) )

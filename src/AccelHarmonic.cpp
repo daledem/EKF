@@ -1,8 +1,35 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/10
+//
+//------------------------------------------------------------------------------
 #include "../include/AccelHarmonic.h"
 
 extern Matrix Cnm;
 extern Matrix Snm;
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// Matrix AccelHarmonic(const Matrix& r,const Matrix& E,int n_max,int m_max)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the acceleration due to the harmonic gravity field of the
+ *   central body
+ *
+ * @param <r> Satellite position vector in the inertial system
+ * @param <E> Transformation matrix to body-fixed system
+ * @param <n_max> Maximum degree
+ * @param <m_max> Maximum order (m_max<=n_max; m_max=0 for zonals, only)
+ *
+ * @return Acceleration (a=d^2r/dt^2)
+ */
+//------------------------------------------------------------------------------
 Matrix AccelHarmonic(const Matrix &r,const Matrix &E, int n_max, int m_max) {
     double r_ref,gm,d,latgc,lon,dUdr,dUdlatgc,dUdlon,q1,q2,q3,b1,b2,b3,r2xy,ax,ay,az;
     Matrix r_bf(E.getFil(),r.getCol());

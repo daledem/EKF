@@ -1,5 +1,33 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/28
+//
+//------------------------------------------------------------------------------
 #include "../include/Geodetic.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void Geodetic(double& lon, double& lat, double& h, const Matrix& r)
+//------------------------------------------------------------------------------
+/**
+ *   geodetic coordinates (Longitude [rad], latitude [rad], altitude [m])
+ *   from given position vector (r [m])
+ *
+ * @param <lon> Longitude [rad]
+ * @param <lat> latitude [rad]
+ * @param <h> altitude [m]
+ * @param <r> position vector [m]
+ *
+ * @return Geodetic coordinates
+ *
+ */
+//------------------------------------------------------------------------------
 void Geodetic(double& lon, double& lat, double& h,const Matrix& r) {
     double R_equ = Const::R_Earth;
     double f     = Const::f_Earth;

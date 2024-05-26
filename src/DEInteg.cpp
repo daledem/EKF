@@ -1,6 +1,42 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/11
+//
+//------------------------------------------------------------------------------
 #include <cstdio>
 #include "../include/DEInteg.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// Matrix DEInteg(Matrix (*func)(double x,const Matrix& Y),double t,double tout,double relerr,double abserr,int n_eqn,Matrix y)
+//------------------------------------------------------------------------------
+/**
+ *   Numerical integration methods for ordinaray differential equations
+ *
+ *   This module provides implemenation of the variable order variable
+ *   stepsize multistep method of Shampine & Gordon.
+ *
+ * @param <func> function to compute derivative Y(x)
+ * @param <t> Input time
+ * @param <tout> Output time
+ * @param <relerr> Relative error
+ * @param <abserr> Absolute error
+ * @param <n_eqn> int
+ * @param <y> vector (double)
+ *
+ * @return vector (double)
+ *
+ * @note Reference:
+ *          Shampine, Gordon: "Computer solution of Ordinary Differential Equations",
+ *          Freeman and Comp., San Francisco (1975).
+ */
+//------------------------------------------------------------------------------
 Matrix DEInteg(Matrix (*func)(double x, const Matrix &Y), double t, double tout, double relerr, double abserr, int n_eqn,Matrix y) {
     double twou= 0.,fouru= 0.,epsilon= 0.,del= 0.,absdel= 0.,tend= 0.,releps= 0.,abseps= 0.,x= 0.,delsgn= 0.,h= 0.,hi = 0.,
         temp1= 0.,term= 0.,psijm1= 0.,gamma= 0.,eta= 0.,p5eps= 0.,round= 0.,sum= 0.,absh= 0.,hold= 0.,hnew= 0.,temp2= 0.,

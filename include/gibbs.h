@@ -1,3 +1,11 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/23
+//
+//------------------------------------------------------------------------------
 #ifndef GIBBS_H
 #define GIBBS_H
 

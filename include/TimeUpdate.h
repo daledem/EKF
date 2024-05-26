@@ -1,3 +1,11 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/11
+//
+//------------------------------------------------------------------------------
 #ifndef TIMEUPDATE_H
 #define TIMEUPDATE_H
 

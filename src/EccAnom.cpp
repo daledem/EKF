@@ -1,5 +1,29 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/28
+//
+//------------------------------------------------------------------------------
 #include "../include/EccAnom.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// double EccAnom(double M, double e)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the eccentric anomaly for elliptic orbits
+ *
+ * @param <M> Mean anomaly in [rad]
+ * @param <e> Eccentricity of the orbit [0,1]
+ *
+ * @return Eccentric anomaly in [rad]
+ */
+//------------------------------------------------------------------------------
 double EccAnom(double M, double e) {
     int maxit = 15;
     double i = 1;

@@ -1,3 +1,11 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/10
+//
+//------------------------------------------------------------------------------
 #ifndef NUTMATRIX_H
 #define NUTMATRIX_H
 
@@ -7,19 +15,6 @@
 #include "./R_x.h"
 #include "./R_y.h"
 #include "./R_z.h"
-
-//------------------------------------------------------------------------------
-// NutMatrix(double Mjd_TT)
-//------------------------------------------------------------------------------
-/**
-*   Transformation from mean to true equator and equinox
-*
-* @param <Mjd_TT> Modified Julian Date (Terrestrial Time)
-*
-* @return Nutation matrix
-*
-*/
-//------------------------------------------------------------------------------
 
 Matrix NutMatrix(double Mjd_TT);
 

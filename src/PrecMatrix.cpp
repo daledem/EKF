@@ -1,5 +1,30 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/09
+//
+//------------------------------------------------------------------------------
 #include "../include/PrecMatrix.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// Matrix PrecMatrix(double Mjd_1,double Mjd_2)
+//------------------------------------------------------------------------------
+/**
+ *   Precession transformation of equatorial coordinates
+ *
+ * @param <Mjd_1> Epoch given (Modified Julian Date TT)
+ * @param <MjD_2> Epoch to precess to (Modified Julian Date TT)
+ *
+ * @return Precession transformation matrix
+ *
+ */
+//------------------------------------------------------------------------------
 Matrix PrecMatrix(double Mjd_1, double Mjd_2) {
     double T,dT,zeta,z,theta;
 

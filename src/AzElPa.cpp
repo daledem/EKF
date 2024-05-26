@@ -1,5 +1,31 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/02
+//
+//------------------------------------------------------------------------------
 #include "../include/AzElPa.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void AzElPa(double& Az,double& El,Matrix& dAds,Matrix& dEds,const Matrix& s)
+//------------------------------------------------------------------------------
+/**
+ *   Computes azimuth, elevation and partials from local tangent coordinates
+ *
+ * @param[out] <Az> Azimuth [rad]
+ * @param[out] <El> Elevation [rad]
+ * @param[out] <dAds> Partials of azimuth w.r.t. s
+ * @param[out] <dEds> Partials of elevation w.r.t. s
+ * @param <s> Topocentric local tangent coordinates (East-North-Zenith frame)
+ *
+ */
+//------------------------------------------------------------------------------
 void AzElPa(double &Az, double &El, Matrix &dAds, Matrix &dEds, const Matrix &s) {
     double pi2 = 2.0*Const::pi;
 

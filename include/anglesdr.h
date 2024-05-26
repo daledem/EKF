@@ -1,3 +1,11 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/24
+//
+//------------------------------------------------------------------------------
 #ifndef ANGLESDR_H
 #define ANGLESDR_H
 

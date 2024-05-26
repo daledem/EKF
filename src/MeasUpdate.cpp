@@ -1,4 +1,34 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/13
+//
+//------------------------------------------------------------------------------
 #include "../include/MeasUpdate.h"
+
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void MeasUpdate(Matrix &K, Matrix& x, double z, double g, double s,const Matrix &G, Matrix &P, int n)
+//------------------------------------------------------------------------------
+/**
+ *   I don´t know what this does
+ *
+ * @param[out] <K> Kalman gain
+ * @param[in,out] <x> State update
+ * @param <z> double
+ * @param <g> double
+ * @param <s> double
+ * @param <G> Matrix
+ * @param[in,out] <P> Covariance update
+ * @param <n> int
+ *
+ */
+//------------------------------------------------------------------------------
 
 void MeasUpdate(Matrix &K, Matrix& x, double z, double g, double s,const Matrix &G, Matrix &P, int n) {
     int m;

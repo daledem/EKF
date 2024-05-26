@@ -1,5 +1,29 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/28
+//
+//------------------------------------------------------------------------------
 #include "../include/NutAngles.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void NutAngles(double& dpsi,double& deps,double Mjd_TT)
+//------------------------------------------------------------------------------
+/**
+ *   Nutation in longitude and obliquity
+ *
+ * @param <dpsi> Nutation Angles
+ * @param <deps> Nutation Angles
+ * @param <Mjd_TT> Modified Julian Date (Terrestrial Time)
+ *
+ */
+//------------------------------------------------------------------------------
 void NutAngles(double& dpsi,double& deps,double Mjd_TT) {
        double T  = (Mjd_TT-Const::MJD_J2000)/36525;
        double T2 = T*T;

@@ -1,7 +1,45 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/23
+//
+//------------------------------------------------------------------------------
 #include "../include/anglesdr.h"
 
 extern Matrix eopdata;
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void anglesdr(Matrix& r2,Matrix& v2,double az1,double az2,double az3,
+//                 double el1,double el2,double el3,double Mjd1,double Mjd2,
+//                 double Mjd3,Matrix rsite1,Matrix rsite2,Matrix rsite3)
+//------------------------------------------------------------------------------
+/**
+ *   This function solves the problem of orbit determination using three
+ *       optical sightings.
+ *
+ * @param[out] <r2> ijk position vector at t2   [m]
+ * @param[out] <v2> ijk velocity vector at t2   [m/s]
+ * @param <az1> azimuth at t1   [rad]
+ * @param <az2> azimuth at t2   [rad]
+ * @param <az3> azimuth at t3   [rad]
+ * @param <el1> elevation at t1   [rad]
+ * @param <el2> elevation at t2   [rad]
+ * @param <el3> elevation at t3   [rad]
+ * @param <Mjd1> Modified julian date of t1
+ * @param <Mjd2> Modified julian date of t2
+ * @param <Mjd3> Modified julian date of t3
+ * @param <rsite1> ijk site1 position vector   [m]
+ * @param <rsite2> ijk site2 position vector   [m]
+ * @param <rsite3> ijk site3 position vector   [m]
+ *
+ */
+//------------------------------------------------------------------------------
 void anglesdr(Matrix &r2, Matrix &v2, double az1, double az2, double az3, double el1, double el2, double el3, double Mjd1, double Mjd2, double Mjd3, Matrix rsite1, Matrix rsite2, Matrix rsite3) {
     double lon1, lat1, h1,lon2, lat2, h2,lon3, lat3, h3,Mjd_UTC,x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,
             TAI_UTC,UT1_TAI,UTC_GPS,UT1_GPS,TT_UTC,GPS_UTC,Mjd_TT,Mjd_UT1,tol,pctchg,magr1,magr2, a,f1,magr1in,magr2in,

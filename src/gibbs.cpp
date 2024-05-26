@@ -1,5 +1,38 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/23
+//
+//------------------------------------------------------------------------------
 #include "../include/gibbs.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void gibbs(Matrix &v2, double &theta, double &theta1, double &copa,
+//              std::string &error, const Matrix &r1, const Matrix &r2,
+//              const Matrix &r3)
+//------------------------------------------------------------------------------
+/**
+ *  This function performs the gibbs method of orbit determination. this
+ *  method determines the velocity at the middle point of the 3 given
+ *  position vectors.
+ *
+ * @param[out] <v2> ijk velocity vector for r2 [m/s]
+ * @param[out] <theta> angl between vectors [rad]
+ * @param[out] <theta2> angl between vectors [rad]
+ * @param[out] <copa> double ['ok',...]
+ * @param[out] <error> flag indicating success
+ * @param <r1> ijk position vector #1 [m]
+ * @param <r2> ijk position vector #2 [m]
+ * @param <r3> ijk position vector #3 [m]
+ *
+ */
+//------------------------------------------------------------------------------
 void gibbs(Matrix &v2, double &theta, double &theta1, double &copa, std::string &error, const Matrix &r1, const Matrix &r2, const Matrix &r3) {
     double small,magr1,magr2,magr3,magd,magn,r1mr2,r3mr1,r2mr3,l,tover2;
 

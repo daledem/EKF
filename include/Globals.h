@@ -1,3 +1,11 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/09
+//
+//------------------------------------------------------------------------------
 #ifndef PROYECTO_GLOBALS_H
 #define PROYECTO_GLOBALS_H
 
@@ -10,7 +18,5 @@ struct auxParam{
     int planets;
     double Mjd_TT;
 };
-
-
 
 #endif //PROYECTO_GLOBALS_H

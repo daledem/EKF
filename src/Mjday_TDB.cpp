@@ -1,5 +1,30 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/28
+//
+//------------------------------------------------------------------------------
 #include "../include/Mjday_TDB.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// double Mjday_TDB(double Mjd_TT)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the Modified Julian Date for barycentric dynamical
+ *       time
+ *
+ * @param <Mjd_TT> Modified julian date (TT)
+ *
+ * @return Modified julian date (TDB)
+ *
+ */
+//------------------------------------------------------------------------------
 double Mjday_TDB(double Mjd_TT) {
     // Compute Julian Centureis of TT
     double T_TT = (Mjd_TT - 51544.5)/36525;

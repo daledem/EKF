@@ -1,19 +1,18 @@
+//$Header$
+//------------------------------------------------------------------------------
+//                                  Const
+//------------------------------------------------------------------------------
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/18
+//
+/**
+ * SAT_Const: Definition of astronomical and mathematical constants
+ */
+//------------------------------------------------------------------------------
 #ifndef PROYECTO_SAT_CONST_H
 #define PROYECTO_SAT_CONST_H
-
-//    %--------------------------------------------------------------------------
-//    %
-//    % SAT_Const:
-//    Definition of
-//    astronomical andmathematical
-//    constants
-//    %
-//    %
-//    Last modified
-//    :   2019/11/03
-//    Meysam Mahooti
-//    %
-//    %--------------------------------------------------------------------------
 
 class Const {
 

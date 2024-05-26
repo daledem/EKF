@@ -1,5 +1,29 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/23
+//
+//------------------------------------------------------------------------------
 #include "../include/angl.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// double angl(const Matrix &vec1, const Matrix &vec2)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the angle between the two vectors
+ *
+ * @param <vec1> vector 1
+ * @param <vec2> vector 2
+ *
+ * @return Angle between the two vectors  -pi to pi
+ */
+//------------------------------------------------------------------------------
 double angl(const Matrix &vec1, const Matrix &vec2) {
     double small, undefined, magv1,magv2,temp;
 

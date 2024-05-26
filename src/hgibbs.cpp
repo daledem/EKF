@@ -1,5 +1,41 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/23
+//
+//------------------------------------------------------------------------------
 #include "../include/hgibbs.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void hgibbs(Matrix &v2, double &theta, double &theta1, double &copa,
+//                  std::string &error, const Matrix &r1, const Matrix &r2,
+//                  const Matrix &r3, double Mjd1, double Mjd2, double Mjd3)
+//------------------------------------------------------------------------------
+/**
+ *  This function implements the herrick-gibbs approximation for orbit
+ *  determination, and finds the middle velocity vector for the 3 given
+ *  position vectors.
+ *
+ * @param[out] <v2> ijk velocity vector for r2 [m/s]
+ * @param[out] <theta> angl between vectors [rad]
+ * @param[out] <theta2> angl between vectors [rad]
+ * @param[out] <copa> double ['ok',...]
+ * @param[out] <error> flag indicating success
+ * @param <r1> ijk position vector #1 [m]
+ * @param <r2> ijk position vector #2 [m]
+ * @param <r3> ijk position vector #3 [m]
+ * @param <Mjd1> julian date of 1st sighting [days from 4713 bc]
+ * @param <Mjd2> julian date of 2st sighting [days from 4713 bc]
+ * @param <Mjd3> julian date of 3st sighting [days from 4713 bc]
+ *
+ */
+//------------------------------------------------------------------------------
 void hgibbs(Matrix &v2, double &theta, double &theta1, double &copa, std::string &error, const Matrix &r1, const Matrix &r2, const Matrix &r3, double Mjd1, double Mjd2, double Mjd3) {
     double magr1,magr2,magr3,tolangle,dt21,dt31,dt32,term1,term2,term3;
 

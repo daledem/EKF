@@ -1,20 +1,16 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/18
+//
+//------------------------------------------------------------------------------
 #ifndef PROYECTO_R_Z_H
 #define PROYECTO_R_Z_H
 
 #include <cmath>
 #include "./Matrix.h"
-
-//------------------------------------------------------------------------------
-// R_z(double angle)
-//------------------------------------------------------------------------------
-/**
-* Calculates rotation matrix for the z direction.
-*
-* @param <angle> angle of rotation [rad]
-*
-* @return vector result
-*/
-//------------------------------------------------------------------------------
 
 Matrix R_z(double angle);
 

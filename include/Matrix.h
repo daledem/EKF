@@ -1,3 +1,16 @@
+//$Header$
+//------------------------------------------------------------------------------
+//                                  Matrix
+//------------------------------------------------------------------------------
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/11
+//
+/**
+ * This class provides a way to emulate matlab matrices
+ */
+//------------------------------------------------------------------------------
 #ifndef _MATRIX_
 #define _MATRIX_
 
@@ -24,12 +37,10 @@ class Matrix
         Matrix  operator/(double divisor);
         double& operator()(const int i, const int j) const;
 
-        // codigo para las siguientes funciones obtenido de https://www.sanfoundry.com/cpp-program-find-inverse-matrix/
         double determinant();
         Matrix coFactor();
         Matrix adjoint();
         Matrix inverse();
-        //
         Matrix trans() const;
         Matrix append(Matrix& matrix2);
         Matrix join(Matrix& matrix2);

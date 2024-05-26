@@ -1,5 +1,53 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/23
+//
+//------------------------------------------------------------------------------
 #include "../include/doubler.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void doubler(Matrix &r2, Matrix &r3, double &f1, double &f2, double &q1, double &magr1, double &magr2, double &a,
+//    double &deltae32, double cc1, double cc2, double magrsite1, double magrsite2, double magr1in, double magr2in,
+//    const Matrix &los1, const Matrix &los2, const Matrix &los3, const Matrix &rsite1, const Matrix &rsite2,
+//    const Matrix &rsite3, double t1, double t3, char direct)
+//------------------------------------------------------------------------------
+/**
+ *   I don´t know what this does
+ *
+ * @param[out] <r2> vector (double)
+ * @param[out] <r3> vector (double)
+ * @param[out] <f1> double
+ * @param[out] <f2> double
+ * @param[out] <q1> double
+ * @param[out] <magr1> double
+ * @param[out] <magr2> double
+ * @param[out] <a> double
+ * @param[out] <deltae32> double
+ * @param <cc1> double
+ * @param <cc2> double
+ * @param <magrsite1> double
+ * @param <magrsite2> double
+ * @param <magr1in> double
+ * @param <magr2in> double
+ * @param <los1> vector (double)
+ * @param <los2> vector (double)
+ * @param <los3> vector (double)
+ * @param <rsite1> vector (double)
+ * @param <rsite2> vector (double)
+ * @param <rsite3> vector (double)
+ * @param <t1> double
+ * @param <t3> double
+ * @param <direct> char
+ *
+ */
+//------------------------------------------------------------------------------
 void doubler(Matrix &r2, Matrix &r3, double &f1, double &f2, double &q1, double &magr1, double &magr2, double &a,
     double &deltae32, double cc1, double cc2, double magrsite1, double magrsite2, double magr1in, double magr2in,
     const Matrix &los1, const Matrix &los2, const Matrix &los3, const Matrix &rsite1, const Matrix &rsite2,

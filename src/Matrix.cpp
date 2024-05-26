@@ -1,17 +1,63 @@
+//$Header$
+//------------------------------------------------------------------------------
+//                                  Matrix
+//------------------------------------------------------------------------------
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/11
+//
+/**
+ * This class provides a way to emulate matlab matrixes
+ */
+//------------------------------------------------------------------------------
 #include "../include/Matrix.h"
 #include <iostream>
 #include <iomanip>
 #include <cmath>
 #define TOL_ 10e-14
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// Matrix()
+//------------------------------------------------------------------------------
+/**
+ *   Construct Matrix object with 0 rows, 0 columns and matrix as nullptr
+ */
+//------------------------------------------------------------------------------
 Matrix::Matrix() : fil(0), col(0),matrix(nullptr){}
 
+//------------------------------------------------------------------------------
+// Matrix(int fil, int col)
+//------------------------------------------------------------------------------
+/**
+ *   Construct Matrix object with 0 in all its indexes
+ *
+ *   @param <fil> number of rows of the matrix
+ *   @param <col> number of columns of the matrix
+ */
+//------------------------------------------------------------------------------
 Matrix::Matrix(int fil, int col) : fil(fil), col(col)
 {
     initMatrix();
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix(int fil, int col, double v[], int n)
+//------------------------------------------------------------------------------
+/**
+ *   Construct Matrix object that takes the values in a vector to
+ *   populate its indexes
+ *
+ *   @param <fil> number of rows of the matrix
+ *   @param <col> number of columns of the matrix
+ *   @param <v> vector (double)
+ *   @param <n> size of v
+ */
+//------------------------------------------------------------------------------
 Matrix::Matrix(int fil, int col, double v[], int n): fil(fil), col(col)
 {
     initMatrix();
@@ -27,13 +73,25 @@ Matrix::Matrix(int fil, int col, double v[], int n): fil(fil), col(col)
         }
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix(const Matrix& m)
+//------------------------------------------------------------------------------
+/**
+ *  A copy constructor
+ */
+//------------------------------------------------------------------------------
 Matrix::Matrix(const Matrix& m):Matrix()
 {
     *this = m;
 }
 
-
+//------------------------------------------------------------------------------
+// ~Matrix()
+//------------------------------------------------------------------------------
+/**
+ *   Deletes the Matrix
+ */
+//------------------------------------------------------------------------------
 Matrix::~Matrix()
 {
     for (int i = 0; i < fil; i++)
@@ -42,19 +100,17 @@ Matrix::~Matrix()
     delete[] matrix;
 }
 
-
-void Matrix::initMatrix()
-{
-    matrix = new double*[fil];
-    for (int i = 0; i < fil; i++)
-        matrix[i] = new double[col];
- 
-    for (int i = 0; i < fil; i++)
-        for (int j = 0; j < col; j++)
-            matrix[i][j] = 0.0;
-}
-
-
+//------------------------------------------------------------------------------
+// Matrix& operator=(const Matrix& matrix2)
+//------------------------------------------------------------------------------
+/**
+ *   Assignment operator
+ *
+ *   @param <matrix2> Matrix object whose values to use to set "this" Matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix& Matrix::operator=(const Matrix& matrix2)
 {
     if(matrix != nullptr) {
@@ -77,7 +133,17 @@ Matrix& Matrix::operator=(const Matrix& matrix2)
     return *this;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator+(const Matrix& matrix2) const
+//------------------------------------------------------------------------------
+/**
+ *   Computes the sum between two Matrix objects
+ *
+ *   @param <matrix2> Matrix object to be add to "this" matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator+(const Matrix& matrix2) const
 {
     Matrix result(fil, col);
@@ -89,7 +155,17 @@ Matrix Matrix::operator+(const Matrix& matrix2) const
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator+(double sumando) const
+//------------------------------------------------------------------------------
+/**
+ *   Computes the sum between a Matrix object and a double
+ *
+ *   @param <sumando> double to be add from "this" matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator+(double sumando) const
 {
     Matrix result(fil, col);
@@ -101,7 +177,18 @@ Matrix Matrix::operator+(double sumando) const
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator+(const double& escalar,const Matrix& matrix)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the sum between a Matrix object and a double
+ *
+ *   @param <escalar> double to be add to matrix
+ *   @param <matrix> Matrix object to be add to escalar
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix operator+(const double& escalar,const Matrix& matrix)
 {
     Matrix result(matrix.fil, matrix.col);
@@ -113,7 +200,17 @@ Matrix operator+(const double& escalar,const Matrix& matrix)
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator-(const Matrix& matrix2) const
+//------------------------------------------------------------------------------
+/**
+ *   Computes the difference between two Matrix objects
+ *
+ *   @param <matrix2> Matrix object to be subtracted to "this" matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator-(const Matrix& matrix2) const
 {
     Matrix result(fil, col);
@@ -125,7 +222,17 @@ Matrix Matrix::operator-(const Matrix& matrix2) const
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator-(double escalar) const
+//------------------------------------------------------------------------------
+/**
+ *   Computes the difference between a Matrix object and a double
+ *
+ *   @param <escalar> double to be subtracted from "this" matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator-(double escalar) const
 {
     Matrix result(fil, col);
@@ -137,7 +244,18 @@ Matrix Matrix::operator-(double escalar) const
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator-(const double& escalar,const Matrix& matrix)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the difference between a Matrix object and a double
+ *
+ *   @param <escalar> double to be subtracted to matrix
+ *   @param <matrix> Matrix object to be subtracted to escalar
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix operator-(const double& escalar,const Matrix& matrix)
 {
     Matrix result(matrix.fil,matrix.col);
@@ -149,7 +267,15 @@ Matrix operator-(const double& escalar,const Matrix& matrix)
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator-()
+//------------------------------------------------------------------------------
+/**
+ *   Computes the opposite of a Matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator-()
 {
     Matrix result(fil, col);
@@ -161,7 +287,17 @@ Matrix Matrix::operator-()
     return result;
 }
 
- 
+//------------------------------------------------------------------------------
+// Matrix operator*(const Matrix& matrix2) const
+//------------------------------------------------------------------------------
+/**
+ *   Computes the product between two Matrix objects
+ *
+ *   @param <matrix2> Matrix object to be multiply by "this" matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator*(const Matrix& matrix2) const
 {
     if(col != matrix2.fil)
@@ -181,7 +317,17 @@ Matrix Matrix::operator*(const Matrix& matrix2) const
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator*(double multiplicador) const
+//------------------------------------------------------------------------------
+/**
+ *   Computes the product between a Matrix object and a double
+ *
+ *   @param <multiplicador> doble to be multiply to "this" matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator*(double multiplicador) const
 {
     Matrix result(fil, col);
@@ -193,7 +339,18 @@ Matrix Matrix::operator*(double multiplicador) const
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator*(const double &escalar, const Matrix &matrix)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the product between a Matrix object and a double
+ *
+ *   @param <escalar> doble to be multiply to "this" matrix object
+ *   @param <matrix> matrix object to be multiply to "this" double
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix operator*(const double &escalar, const Matrix &matrix) {
     Matrix result(matrix.fil, matrix.col);
 
@@ -204,7 +361,17 @@ Matrix operator*(const double &escalar, const Matrix &matrix) {
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix operator/(double divisor)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the division between a Matrix object and a double
+ *
+ *   @param <divisor> double to divide "this" matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::operator/(double divisor)
 {
     Matrix result(fil, col);
@@ -216,13 +383,34 @@ Matrix Matrix::operator/(double divisor)
     return result;
 }
 
- 
+//------------------------------------------------------------------------------
+// double& operator()(const int i, const int j)
+//------------------------------------------------------------------------------
+/**
+ *   Allow access to the values of the matrix emulating how matlab works
+ *
+ *   @param <i> index of the row
+ *   @param <j> index of the column
+ *
+ *   @return double at (i,j)
+ */
+//------------------------------------------------------------------------------
 double& Matrix::operator()(const int i, const int j) const
 {
     return matrix[i-1][j-1];
 }
 
-
+//------------------------------------------------------------------------------
+// double determinant()
+//------------------------------------------------------------------------------
+/**
+ *   Computes the determinant of "this" Matrix object
+ *
+ *   @return Determinant of "this" Matrix object
+ *
+ *   @note This code was taken from https://www.sanfoundry.com/cpp-program-find-inverse-matrix/
+ */
+//------------------------------------------------------------------------------
 double Matrix::determinant() {
     double det = 0;
     double **pd = matrix;
@@ -357,7 +545,17 @@ double Matrix::determinant() {
     }
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix coFactor()
+//------------------------------------------------------------------------------
+/**
+ *   Computes the coFactor of "this" Matrix object
+ *
+ *   @return coFator (as Matrix object) of "this" Matrix object
+ *
+ *   @note This code was taken from https://www.sanfoundry.com/cpp-program-find-inverse-matrix/
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::coFactor() {
     Matrix cofactor(fil, col);
     if (fil != col)
@@ -431,7 +629,17 @@ Matrix Matrix::coFactor() {
     return cofactor;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix adjoint()
+//------------------------------------------------------------------------------
+/**
+ *   Computes the adjoint of "this" Matrix object
+ *
+ *   @return adjoint (as Matrix object) of "this" Matrix object
+ *
+ *   @note This code was taken from https://www.sanfoundry.com/cpp-program-find-inverse-matrix/
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::adjoint() {
     Matrix cofactor(fil, col);
     Matrix adj(fil, col);
@@ -449,7 +657,17 @@ Matrix Matrix::adjoint() {
     return adj;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix inverse()
+//------------------------------------------------------------------------------
+/**
+ *   Computes the inverse of "this" Matrix object
+ *
+ *   @return inverse (as Matrix object) of "this" Matrix object
+ *
+ *   @note This code was taken from https://www.sanfoundry.com/cpp-program-find-inverse-matrix/
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::inverse() {
     Matrix cofactor(fil, col);
     Matrix inv(fil, col);
@@ -469,7 +687,15 @@ Matrix Matrix::inverse() {
     return inv;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix trans() const
+//------------------------------------------------------------------------------
+/**
+ *   Computes the transpose of "this" Matrix object
+ *
+ *   @return transpose (as Matrix object) of "this" Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::trans() const
 {
     Matrix result(col,fil);
@@ -481,7 +707,17 @@ Matrix Matrix::trans() const
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix append(Matrix& matrix2)
+//------------------------------------------------------------------------------
+/**
+ *   Appends the colums of two different Matrix objects with the same numeber of rows
+ *
+ *   @param <matrix2> Matrix object to be append to "this" Matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::append(Matrix& matrix2) {
     if(fil != matrix2.fil)
         throw "Different row dimensions";
@@ -500,7 +736,17 @@ Matrix Matrix::append(Matrix& matrix2) {
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix join(Matrix& matrix2)
+//------------------------------------------------------------------------------
+/**
+ *   Joins the rows of two different Matrix objects with the same numeber of columns
+ *
+ *   @param <matrix2> Matrix object to be join to "this" Matrix object
+ *
+ *   @return Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::join(Matrix &matrix2) {
     if(col != matrix2.col)
         throw "Different col dimensions";
@@ -519,18 +765,44 @@ Matrix Matrix::join(Matrix &matrix2) {
     return result;
 }
 
-
-
+//------------------------------------------------------------------------------
+// int getFil() const
+//------------------------------------------------------------------------------
+/**
+ *   Gives the number of rows a Matrix object has
+ *
+ *   @return The number of rows
+ */
+//------------------------------------------------------------------------------
 int Matrix::getFil() const {
     return fil;
 }
 
-
+//------------------------------------------------------------------------------
+// int getCol() const
+//------------------------------------------------------------------------------
+/**
+ *   Gives the number of columns a Matrix object has
+ *
+ *   @return The number of columns
+ */
+//------------------------------------------------------------------------------
 int Matrix::getCol() const {
     return col;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix getFilaByIndex(int fil,int inicio) const
+//------------------------------------------------------------------------------
+/**
+ *   Gives the specify row from the specify start to the end
+ *
+ *   @param <fil> index of the row you want to obtain
+ *   @param <inicio> index of the start (default is 0)
+ *
+ *   @return The row as a Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::getFilaByIndex(int fil,int inicio) const {
     if(inicio > col) {
         printf("Parameters outside of dimensions: %d",this->col);
@@ -545,7 +817,19 @@ Matrix Matrix::getFilaByIndex(int fil,int inicio) const {
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix getFilaByIndex(int fil,int inicio, int fin) const
+//------------------------------------------------------------------------------
+/**
+ *   Gives the specify row from the specify start to the specify end
+ *
+ *   @param <fil> index of the row you want to obtain
+ *   @param <inicio> index of the start
+ *   @param <fin> index of the end
+ *
+ *   @return The row as a Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::getFilaByIndex(int fil,int inicio, int fin) const {
     if(fin > col || inicio > col || inicio > fin) {
         printf("Parameters outside of dimensions: %d",this->col);
@@ -560,7 +844,18 @@ Matrix Matrix::getFilaByIndex(int fil,int inicio, int fin) const {
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix getColumnaByIndex(int col,int inicio) const
+//------------------------------------------------------------------------------
+/**
+ *   Gives the specify column from the specify start to the end
+ *
+ *   @param <col> index of the column you want to obtain
+ *   @param <inicio> index of the start (default is 0)
+ *
+ *   @return The column as a Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::getColumnaByIndex(int col,int inicio) const {
     if(inicio > fil) {
         printf("Parameters outside of dimensions: %d",this->fil);
@@ -575,7 +870,19 @@ Matrix Matrix::getColumnaByIndex(int col,int inicio) const {
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix getColumnaByIndex(int col,int inicio, int fin) const
+//------------------------------------------------------------------------------
+/**
+ *   Gives the specify column from the specify start to the specify end
+ *
+ *   @param <col> index of the column you want to obtain
+ *   @param <inicio> index of the start
+ *   @param <fin> index of the end
+ *
+ *   @return The column as a Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::getColumnaByIndex(int col,int inicio,int fin) const {
     if(fin > fil || inicio > fil || inicio > fin) {
         printf("Parameters outside of dimensions: %d",this->fil);
@@ -590,7 +897,18 @@ Matrix Matrix::getColumnaByIndex(int col,int inicio,int fin) const {
     return result;
 }
 
-
+//------------------------------------------------------------------------------
+// bool equals(const Matrix &matrix2,const double TOL) const
+//------------------------------------------------------------------------------
+/**
+ *   Checks the similarity between two Matrix objects with a given tolerance
+ *
+ *   @param <matrix2> Matrix object to be compared to "this" Matrix object
+ *   @param <TOL> The tolerance of difference that is allow between the two Matrix objects
+ *
+ *   @return true if they are equals with the given TOL, false otherwise
+ */
+//------------------------------------------------------------------------------
 bool Matrix::equals(const Matrix &matrix2,const double TOL) const {
     if(fil != matrix2.fil || col != matrix2.col)
         return false;
@@ -602,7 +920,13 @@ bool Matrix::equals(const Matrix &matrix2,const double TOL) const {
     return true;
 }
 
-
+//------------------------------------------------------------------------------
+// void print()
+//------------------------------------------------------------------------------
+/**
+ *   Prints the values in the Matrix object in the console
+ */
+//------------------------------------------------------------------------------
 void Matrix::print()
 {
     for (int i = 0; i < fil; i++){
@@ -614,7 +938,17 @@ void Matrix::print()
     std::cout << std::endl;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix eye(int n)
+//------------------------------------------------------------------------------
+/**
+ *   Creates an identity matrix of the given size
+ *
+ *   @param <n> size of the matrix
+ *
+ *   @return Identity matrix of size nxn
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::eye(int n) {
     Matrix id(n,n);
 
@@ -624,7 +958,18 @@ Matrix Matrix::eye(int n) {
     return id;
 }
 
-
+//------------------------------------------------------------------------------
+// Matrix cross(const Matrix &matrix1, const Matrix &matrix2)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the cross product of two vectors
+ *
+ *   @param <matrix1> Matrix object with either 1 row or 1 column
+ *   @param <matrix2> Matrix object with either 1 row or 1 column
+ *
+ *   @return The cross product as a Matrix object
+ */
+//------------------------------------------------------------------------------
 Matrix Matrix::cross(const Matrix &matrix1, const Matrix &matrix2) {
     if(matrix1.fil == 1 && matrix1.col == 3 && matrix1.col == matrix2.col && matrix1.fil == matrix2.fil) {
         Matrix result(1,matrix1.col);
@@ -650,7 +995,18 @@ Matrix Matrix::cross(const Matrix &matrix1, const Matrix &matrix2) {
     exit(EXIT_FAILURE);
 }
 
-
+//------------------------------------------------------------------------------
+// double dot(const Matrix &matrix1, const Matrix &matrix2)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the dot product of two vectors
+ *
+ *   @param <matrix1> Matrix object with either 1 row or 1 column
+ *   @param <matrix2> Matrix object with either 1 row or 1 column
+ *
+ *   @return The dot product of the two vectors
+ */
+//------------------------------------------------------------------------------
 double Matrix::dot(const Matrix &matrix1, const Matrix &matrix2) {
     double sum = 0.0;
 
@@ -674,7 +1030,17 @@ double Matrix::dot(const Matrix &matrix1, const Matrix &matrix2) {
     exit(EXIT_FAILURE);
 }
 
-
+//------------------------------------------------------------------------------
+// double norm(const Matrix& matrix)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the norm of a vector
+ *
+ *   @param <matrix> Matrix object with either 1 row or 1 column
+ *
+ *   @return The norm of the vector
+ */
+//------------------------------------------------------------------------------
 double Matrix::norm(const Matrix& matrix) {
     double sum = 0.0;
     if(matrix.fil == 1) {
@@ -695,4 +1061,26 @@ double Matrix::norm(const Matrix& matrix) {
     printf("Wrong matrix dimensions for norm");
     exit(EXIT_FAILURE);
 
+}
+
+//---------------------------------
+// private methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void initMatrix()
+//------------------------------------------------------------------------------
+/**
+ *   Allocates the space memory needed to save the values of the matrix
+ */
+//------------------------------------------------------------------------------
+void Matrix::initMatrix()
+{
+    matrix = new double*[fil];
+    for (int i = 0; i < fil; i++)
+        matrix[i] = new double[col];
+
+    for (int i = 0; i < fil; i++)
+        for (int j = 0; j < col; j++)
+            matrix[i][j] = 0.0;
 }

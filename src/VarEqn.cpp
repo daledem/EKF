@@ -1,8 +1,35 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/05/11
+//
+//------------------------------------------------------------------------------
 #include "../include/VarEqn.h"
 
 extern auxParam AuxParam;
 extern Matrix eopdata;
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// Matrix VarEqn(double x, const Matrix &yPhi)
+//------------------------------------------------------------------------------
+/**
+ *   Computes the variational equations, i.e. the derivative of the state vector
+ *      and the state transition matrix
+ *
+ * @param <x> Time since epoch in [s]
+ * @param <yPhi> (6+36)-dim vector comprising the state vector (y) and the
+ *                  state transition matrix (Phi) in column wise storage order
+ *
+ * @return Derivative of yPhi
+ *
+ */
+//------------------------------------------------------------------------------
 Matrix VarEqn(double x, const Matrix &yPhi) {
     double x_pole,y_pole,UT1_UTC,LOD,dpsi,deps,dx_pole,dy_pole,TAI_UTC,
     UT1_TAI,UTC_GPS,UT1_GPS,TT_UTC,GPS_UTC,Mjd_UT1;

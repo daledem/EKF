@@ -1,5 +1,31 @@
+//$Header$
+//
+// EKF_GEOS3
+//
+// Author: David Ledesma
+// Created: 2024/04/28
+//
+//------------------------------------------------------------------------------
 #include "../include/Legendre.h"
 
+//---------------------------------
+// public methods
+//---------------------------------
+
+//------------------------------------------------------------------------------
+// void Legendre(Matrix& pnm,Matrix& dpnm, int n, int m, double fi)
+//------------------------------------------------------------------------------
+/**
+ *   I don´t know what this does
+ *
+ * @param[out] <pnm> Matrix
+ * @param[out] <dpnm> Matrix
+ * @param <n> int
+ * @param <m> int
+ * @param <fi> double
+ *
+ */
+//------------------------------------------------------------------------------
 void Legendre(Matrix& pnm,Matrix& dpnm, int n, int m, double fi) {
     pnm = Matrix(n+1,m+1);
     dpnm = Matrix(n+1,m+1);
